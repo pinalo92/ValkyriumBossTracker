@@ -1,0 +1,15 @@
+{
+  "region": "EU",
+  "server": "Kaisinel",
+  "faction": "elyos",
+  "stale_after_minutes": 45,
+  "alert_lead_minutes": 5,
+  "max_travel_minutes": 25,
+  "favorite_boss_ids": ["aullamu", "lawa", "knash"],
+  "excluded_boss_ids": [],
+  "preferred_zones": [],
+  "sound_alerts": true,
+  "compact_mode": false,
+  "a2tools_server_id": 0,
+  "a2tools_auto_sync": true
+}

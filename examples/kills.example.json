@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "boss_id": "kernon_west",
+      "type": "kill",
+      "at": "2026-10-19T18:00:00+00:00",
+      "source": "manual-example"
+    },
+    {
+      "boss_id": "lawa",
+      "type": "seen_alive",
+      "at": "2026-10-19T19:30:00+00:00",
+      "source": "manual-example"
+    }
+  ]
+}

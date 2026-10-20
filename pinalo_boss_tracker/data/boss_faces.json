@@ -1,0 +1,485 @@
+{
+  "neikel_east": {
+    "field_id": "101001",
+    "en": "Neikel of the East",
+    "file": "UT_256_MOB_Keneir_01_V03.webp",
+    "source": "aion2data",
+    "alt": "Neikel of the East"
+  },
+  "field:101001": {
+    "field_id": "101001",
+    "en": "Neikel of the East",
+    "file": "UT_256_MOB_Keneir_01_V03.webp",
+    "source": "aion2data",
+    "alt": "Neikel of the East"
+  },
+  "rotten_kutar": {
+    "field_id": "101002",
+    "en": "Rotten Kutar",
+    "file": "UT_256_MOB_BigMan_01_V03.webp",
+    "source": "aion2data",
+    "alt": "Rotten Kutar"
+  },
+  "field:101002": {
+    "field_id": "101002",
+    "en": "Rotten Kutar",
+    "file": "UT_256_MOB_BigMan_01_V03.webp",
+    "source": "aion2data",
+    "alt": "Rotten Kutar"
+  },
+  "kernon_west": {
+    "field_id": "101003",
+    "en": "Kernon of the West",
+    "file": "UT_256_MOB_Keneir_01_V02.webp",
+    "source": "aion2data",
+    "alt": "Kernon of the West"
+  },
+  "field:101003": {
+    "field_id": "101003",
+    "en": "Kernon of the West",
+    "file": "UT_256_MOB_Keneir_01_V02.webp",
+    "source": "aion2data",
+    "alt": "Kernon of the West"
+  },
+  "kusan": {
+    "field_id": "101004",
+    "en": "Kusan the Mad Gladiator",
+    "file": "UT_256_MOB_KrallElite_01.webp",
+    "source": "aion2data",
+    "alt": "Kusan the Mad Gladiator"
+  },
+  "field:101004": {
+    "field_id": "101004",
+    "en": "Kusan the Mad Gladiator",
+    "file": "UT_256_MOB_KrallElite_01.webp",
+    "source": "aion2data",
+    "alt": "Kusan the Mad Gladiator"
+  },
+  "garshim": {
+    "field_id": "101005",
+    "en": "Ritualist Garshim",
+    "file": "UT_256_MOB_KrallElite_01.webp",
+    "source": "aion2data",
+    "alt": "Ritualist Garshim"
+  },
+  "field:101005": {
+    "field_id": "101005",
+    "en": "Ritualist Garshim",
+    "file": "UT_256_MOB_KrallElite_01.webp",
+    "source": "aion2data",
+    "alt": "Ritualist Garshim"
+  },
+  "teegant": {
+    "field_id": "101006",
+    "en": "Bodyguard Teegant",
+    "file": "UT_256_MOB_Neuth_03_V01.webp",
+    "source": "aion2data",
+    "alt": "Bodyguard Teegant"
+  },
+  "field:101006": {
+    "field_id": "101006",
+    "en": "Bodyguard Teegant",
+    "file": "UT_256_MOB_Neuth_03_V01.webp",
+    "source": "aion2data",
+    "alt": "Bodyguard Teegant"
+  },
+  "blooming_korin": {
+    "field_id": "101007",
+    "en": "Blooming Korin",
+    "file": "UT_256_MOB_Coradon_01.webp",
+    "source": "aion2data",
+    "alt": "Blooming Korin"
+  },
+  "field:101007": {
+    "field_id": "101007",
+    "en": "Blooming Korin",
+    "file": "UT_256_MOB_Coradon_01.webp",
+    "source": "aion2data",
+    "alt": "Blooming Korin"
+  },
+  "saursus": {
+    "field_id": "101008",
+    "en": "Furious Saursus",
+    "file": "UT_256_MOB_UrsussElite_01_V01.webp",
+    "source": "aion2data",
+    "alt": "Furious Saursus"
+  },
+  "field:101008": {
+    "field_id": "101008",
+    "en": "Furious Saursus",
+    "file": "UT_256_MOB_UrsussElite_01_V01.webp",
+    "source": "aion2data",
+    "alt": "Furious Saursus"
+  },
+  "pnyn": {
+    "field_id": "101009",
+    "en": "Bloodfang Pnyn",
+    "file": "UT_256_MOB_KalnifElite_01_V01.webp",
+    "source": "aion2data",
+    "alt": "Bloodfang Pnyn"
+  },
+  "field:101009": {
+    "field_id": "101009",
+    "en": "Bloodfang Pnyn",
+    "file": "UT_256_MOB_KalnifElite_01_V01.webp",
+    "source": "aion2data",
+    "alt": "Bloodfang Pnyn"
+  },
+  "layla": {
+    "field_id": "101010",
+    "en": "Heretic Layla",
+    "file": "UT_256_MOB_SuraPriest_01_V04.webp",
+    "source": "aion2data",
+    "alt": "Heretic Layla"
+  },
+  "field:101010": {
+    "field_id": "101010",
+    "en": "Heretic Layla",
+    "file": "UT_256_MOB_SuraPriest_01_V04.webp",
+    "source": "aion2data",
+    "alt": "Heretic Layla"
+  },
+  "lawa": {
+    "field_id": "101011",
+    "en": "Black Tentacle Lawa",
+    "file": "UT_256_MOB_NagaElite_05.webp",
+    "source": "aion2data",
+    "alt": "Black Tentacle Lawa"
+  },
+  "field:101011": {
+    "field_id": "101011",
+    "en": "Black Tentacle Lawa",
+    "file": "UT_256_MOB_NagaElite_05.webp",
+    "source": "aion2data",
+    "alt": "Black Tentacle Lawa"
+  },
+  "demiross": {
+    "field_id": "101013",
+    "en": "Centurion Demiros",
+    "file": "UT_256_MOB_Undead_01.webp",
+    "source": "aion2data",
+    "alt": "Centurion Demiros"
+  },
+  "field:101013": {
+    "field_id": "101013",
+    "en": "Centurion Demiros",
+    "file": "UT_256_MOB_Undead_01.webp",
+    "source": "aion2data",
+    "alt": "Centurion Demiros"
+  },
+  "ansas": {
+    "field_id": "101014",
+    "en": "Divine Ansas",
+    "file": "UT_256_MOB_Guardit_03.webp",
+    "source": "aion2data",
+    "alt": "Divine Ansas"
+  },
+  "field:101014": {
+    "field_id": "101014",
+    "en": "Divine Ansas",
+    "file": "UT_256_MOB_Guardit_03.webp",
+    "source": "aion2data",
+    "alt": "Divine Ansas"
+  },
+  "moshav": {
+    "field_id": "101015",
+    "en": "Harvest Manager Moshav",
+    "file": "UT_256_MOB_DrakanElite_03_V01.webp",
+    "source": "aion2data",
+    "alt": "Harvest Manager Moshav"
+  },
+  "field:101015": {
+    "field_id": "101015",
+    "en": "Harvest Manager Moshav",
+    "file": "UT_256_MOB_DrakanElite_03_V01.webp",
+    "source": "aion2data",
+    "alt": "Harvest Manager Moshav"
+  },
+  "knash": {
+    "field_id": "101016",
+    "en": "Sentinel K'nash",
+    "file": "UT_256_MOB_BeritraD_04_V01.webp",
+    "source": "aion2data",
+    "alt": "Sentinel K'nash"
+  },
+  "field:101016": {
+    "field_id": "101016",
+    "en": "Sentinel K'nash",
+    "file": "UT_256_MOB_BeritraD_04_V01.webp",
+    "source": "aion2data",
+    "alt": "Sentinel K'nash"
+  },
+  "aulla": {
+    "field_id": "101017",
+    "en": "Scholar Aulla",
+    "file": "UT_256_MOB_OwlMagic_01.webp",
+    "source": "aion2data",
+    "alt": "Scholar Aulla"
+  },
+  "field:101017": {
+    "field_id": "101017",
+    "en": "Scholar Aulla",
+    "file": "UT_256_MOB_OwlMagic_01.webp",
+    "source": "aion2data",
+    "alt": "Scholar Aulla"
+  },
+  "aullamu": {
+    "field_id": "101018",
+    "en": "Forest Warrior Aullamu",
+    "file": "UT_256_MOB_OwlElite_01_V01.webp",
+    "source": "aion2data",
+    "alt": "Forest Warrior Aullamu"
+  },
+  "field:101018": {
+    "field_id": "101018",
+    "en": "Forest Warrior Aullamu",
+    "file": "UT_256_MOB_OwlElite_01_V01.webp",
+    "source": "aion2data",
+    "alt": "Forest Warrior Aullamu"
+  },
+  "taulo": {
+    "field_id": "101019",
+    "en": "Chaser Taulo",
+    "file": "UT_256_MOB_OwlElite_01_V01.webp",
+    "source": "aion2data",
+    "alt": "Chaser Taulo"
+  },
+  "field:101019": {
+    "field_id": "101019",
+    "en": "Chaser Taulo",
+    "file": "UT_256_MOB_OwlElite_01_V01.webp",
+    "source": "aion2data",
+    "alt": "Chaser Taulo"
+  },
+  "gartua": {
+    "field_id": "101021",
+    "en": "Eternal Gartua",
+    "file": "UT_256_MOB_Gartua_01_V02.webp",
+    "source": "aion2data",
+    "alt": "Eternal Gartua"
+  },
+  "field:101021": {
+    "field_id": "101021",
+    "en": "Eternal Gartua",
+    "file": "UT_256_MOB_Gartua_01_V02.webp",
+    "source": "aion2data",
+    "alt": "Eternal Gartua"
+  },
+  "dartan": {
+    "field_id": "111024",
+    "en": "Silent Dartan",
+    "file": "UT_256_MOB_BeritraD_01.webp",
+    "source": "aion2data",
+    "alt": "Silent Dartan"
+  },
+  "field:101022": {
+    "field_id": "101022",
+    "en": "Silent Dartan",
+    "file": "UT_256_MOB_BeritraD_01.webp",
+    "source": "aion2data",
+    "alt": "Silent Dartan"
+  },
+  "kashapa": {
+    "field_id": "111023",
+    "en": "Soul Ruler Kashapa",
+    "file": "UT_256_MOB_Kashapa_01.webp",
+    "source": "aion2data",
+    "alt": "Soul Ruler Kashapa"
+  },
+  "field:101023": {
+    "field_id": "101023",
+    "en": "Soul Ruler Kashapa",
+    "file": "UT_256_MOB_Kashapa_01.webp",
+    "source": "aion2data",
+    "alt": "Soul Ruler Kashapa"
+  },
+  "lagta": {
+    "field_id": "111022",
+    "en": "High Commander Lagta",
+    "file": "UT_256_MOB_Lagta_01.webp",
+    "source": "aion2data",
+    "alt": "High Commander Lagta"
+  },
+  "field:101024": {
+    "field_id": "101024",
+    "en": "High Commander Lagta",
+    "file": "UT_256_MOB_Lagta_01.webp",
+    "source": "aion2data",
+    "alt": "High Commander Lagta"
+  },
+  "field:111001": {
+    "field_id": "111001",
+    "en": "Melted Danar",
+    "file": "UT_256_MOB_DranaVar_02_V01.webp",
+    "source": "aion2data",
+    "alt": "Melted Danar"
+  },
+  "field:111002": {
+    "field_id": "111002",
+    "en": "Black Warrior Aed",
+    "file": "UT_256_MOB_SuraWar_05_V02.webp",
+    "source": "aion2data",
+    "alt": "Black Warrior Aed"
+  },
+  "field:111003": {
+    "field_id": "111003",
+    "en": "Faithful Rajit",
+    "file": "UT_256_MOB_DracoWar_01_V03.webp",
+    "source": "aion2data",
+    "alt": "Faithful Rajit"
+  },
+  "field:111004": {
+    "field_id": "111004",
+    "en": "Berserker Vargor",
+    "file": "UT_256_MOB_Varg_03_V01.webp",
+    "source": "aion2data",
+    "alt": "Berserker Vargor"
+  },
+  "field:111005": {
+    "field_id": "111005",
+    "en": "Predator Garsan",
+    "file": "UT_256_MOB_UrsussElite_01_CV01.webp",
+    "source": "aion2data",
+    "alt": "Predator Garsan"
+  },
+  "field:111006": {
+    "field_id": "111006",
+    "en": "Blood Warrior Lannar",
+    "file": "UT_256_MOB_AltKnife_01.webp",
+    "source": "aion2data",
+    "alt": "Blood Warrior Lannar"
+  },
+  "field:111007": {
+    "field_id": "111007",
+    "en": "Deceiver Trid",
+    "file": "UT_256_MOB_NornirVar_02_V02.webp",
+    "source": "aion2data",
+    "alt": "Deceiver Trid"
+  },
+  "field:111008": {
+    "field_id": "111008",
+    "en": "Blue Wave Kelpina",
+    "file": "UT_256_MOB_Keneir_01_V02.webp",
+    "source": "aion2data",
+    "alt": "Blue Wave Kelpina"
+  },
+  "field:111009": {
+    "field_id": "111009",
+    "en": "High Overseer Nutah",
+    "file": "UT_256_MOB_SkurvWar_04_V03.webp",
+    "source": "aion2data",
+    "alt": "High Overseer Nutah"
+  },
+  "field:111010": {
+    "field_id": "111010",
+    "en": "Advisor Resana",
+    "file": "UT_256_MOB_DrakanElite_03_V01.webp",
+    "source": "aion2data",
+    "alt": "Advisor Resana"
+  },
+  "field:111011": {
+    "field_id": "111011",
+    "en": "Special Operations Leader Linx",
+    "file": "UT_256_MOB_FighterM_01_V03.webp",
+    "source": "aion2data",
+    "alt": "Special Operations Leader Linx"
+  },
+  "field:111012": {
+    "field_id": "111012",
+    "en": "Desecrator Newbold",
+    "file": "UT_256_MOB_AltKnife_06.webp",
+    "source": "aion2data",
+    "alt": "Desecrator Newbold"
+  },
+  "field:111013": {
+    "field_id": "111013",
+    "en": "Specter Archon Axios",
+    "file": "UT_256_MOB_DstrArchonE_01.webp",
+    "source": "aion2data",
+    "alt": "Specter Archon Axios"
+  },
+  "field:111014": {
+    "field_id": "111014",
+    "en": "Addicted Hardirun",
+    "file": "UT_256_MOB_AddShulack_05.webp",
+    "source": "aion2data",
+    "alt": "Addicted Hardirun"
+  },
+  "field:111015": {
+    "field_id": "111015",
+    "en": "Executioner Barthien",
+    "file": "UT_256_MOB_AltKnife_07.webp",
+    "source": "aion2data",
+    "alt": "Executioner Barthien"
+  },
+  "field:111016": {
+    "field_id": "111016",
+    "en": "Drakan Battalion Weapon Guruta",
+    "file": "UT_256_MOB_BeritraD_04_V01.webp",
+    "source": "aion2data",
+    "alt": "Drakan Battalion Weapon Guruta"
+  },
+  "field:111017": {
+    "field_id": "111017",
+    "en": "Veteran Shujakan",
+    "file": "UT_256_MOB_Lycan_05.webp",
+    "source": "aion2data",
+    "alt": "Veteran Shujakan"
+  },
+  "field:111018": {
+    "field_id": "111018",
+    "en": "Visionary Karuka",
+    "file": "UT_256_MOB_Lycan_04.webp",
+    "source": "aion2data",
+    "alt": "Visionary Karuka"
+  },
+  "field:111020": {
+    "field_id": "111020",
+    "en": "Sharp Shylak",
+    "file": "UT_256_MOB_DracoElite_01.webp",
+    "source": "aion2data",
+    "alt": "Sharp Shylak"
+  },
+  "field:111021": {
+    "field_id": "111021",
+    "en": "Immortal Gartua",
+    "file": "UT_256_MOB_Gartua_01_V02.webp",
+    "source": "aion2data",
+    "alt": "Immortal Gartua"
+  },
+  "field:111022": {
+    "field_id": "111022",
+    "en": "High Commander Lagta",
+    "file": "UT_256_MOB_Lagta_01.webp",
+    "source": "aion2data",
+    "alt": "High Commander Lagta"
+  },
+  "field:111023": {
+    "field_id": "111023",
+    "en": "Soul Ruler Kashapa",
+    "file": "UT_256_MOB_Kashapa_01.webp",
+    "source": "aion2data",
+    "alt": "Soul Ruler Kashapa"
+  },
+  "field:111024": {
+    "field_id": "111024",
+    "en": "Silent Dartan",
+    "file": "UT_256_MOB_BeritraD_01.webp",
+    "source": "aion2data",
+    "alt": "Silent Dartan"
+  },
+  "field:2001": {
+    "field_id": "2001",
+    "en": "Argo, the Spirit King",
+    "file": "UT_256_MOB_EleKing_01_V02.webp",
+    "source": "aion2data",
+    "alt": "Argo, the Spirit King"
+  },
+  "argo_spirit_king": {
+    "field_id": "2001",
+    "en": "Argo, the Spirit King",
+    "file": "UT_256_MOB_EleKing_01_V02.webp",
+    "source": "aion2data",
+    "alt": "Rey Espíritu Agro"
+  }
+}

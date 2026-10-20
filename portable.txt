@@ -1,0 +1,3 @@
+Pinalo Boss Tracker — modo portable.
+Los datos (SQLite, ajustes) van en la carpeta .\data junto a este archivo.
+borra este archivo para usar AppData\Local\PinaloBossTracker.

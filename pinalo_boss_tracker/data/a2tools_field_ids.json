@@ -1,0 +1,443 @@
+{
+  "101001": {
+    "en": "Neikel of the East",
+    "es": "Neikel del este",
+    "side": "elyos",
+    "level": 45,
+    "where_en": "Verteron",
+    "where_es": "",
+    "string_key": "String_STR_M_L1_CV_Keneir_Named_02_body"
+  },
+  "101002": {
+    "en": "Rotten Kutar",
+    "es": "Kutar podrido",
+    "side": "elyos",
+    "level": 45,
+    "where_en": "Verteron",
+    "where_es": "",
+    "string_key": "String_STR_M_L1_BigMan02_Named_01_body"
+  },
+  "101003": {
+    "en": "Kernon of the West",
+    "es": "Kernon del oeste",
+    "side": "elyos",
+    "level": 45,
+    "where_en": "Verteron",
+    "where_es": "",
+    "string_key": "String_STR_M_L1_CV_Keneir_Named_01_body"
+  },
+  "101004": {
+    "en": "Kusan the Mad Gladiator",
+    "es": "Gladiador frenético Kusan",
+    "side": "elyos",
+    "level": 45,
+    "where_en": "Verteron",
+    "where_es": "",
+    "string_key": "String_STR_M_L1_VF_KrallElite_Named_01_body"
+  },
+  "101005": {
+    "en": "Ritualist Garshim",
+    "es": "Ritualista Garshim",
+    "side": "elyos",
+    "level": 45,
+    "where_en": "Verteron",
+    "where_es": "",
+    "string_key": "String_STR_M_L1_VF_KrallElite_Named_02_body"
+  },
+  "101006": {
+    "en": "Bodyguard Teegant",
+    "es": "Guardia Teegant",
+    "side": "elyos",
+    "level": 45,
+    "where_en": "Verteron",
+    "where_es": "",
+    "string_key": "String_STR_M_L1_VF_Neuth_01_Named_01_body"
+  },
+  "101007": {
+    "en": "Blooming Korin",
+    "es": "Korin en flor",
+    "side": "elyos",
+    "level": 45,
+    "where_en": "Verteron",
+    "where_es": "",
+    "string_key": "String_STR_M_L1_BF_Coradon_Named_01_body"
+  },
+  "101008": {
+    "en": "Furious Saursus",
+    "es": "Saursus iracundo",
+    "side": "elyos",
+    "level": 45,
+    "where_en": "Verteron",
+    "where_es": "",
+    "string_key": "String_STR_M_L1_TF_Ursuss_Named_01_body"
+  },
+  "101009": {
+    "en": "Bloodfang Pnyn",
+    "es": "Pnyn de colmillo sangriento",
+    "side": "elyos",
+    "level": 45,
+    "where_en": "Verteron",
+    "where_es": "",
+    "string_key": "String_STR_M_L1_TF_Kalnif_Named_01_body"
+  },
+  "101010": {
+    "en": "Heretic Layla",
+    "es": "Apóstata Layla",
+    "side": "elyos",
+    "level": 45,
+    "where_en": "Verteron",
+    "where_es": "",
+    "string_key": "String_STR_M_L1_AH_A_SuraMag_01_body"
+  },
+  "101011": {
+    "en": "Black Tentacle Lawa",
+    "es": "Lawa del tentáculo negro",
+    "side": "elyos",
+    "level": 45,
+    "where_en": "Verteron",
+    "where_es": "",
+    "string_key": "String_STR_M_L1_AC_WaterEle_04_Named_01_body"
+  },
+  "101012": {
+    "en": "Phantasm Kasia",
+    "es": "Kasia de ensoñación",
+    "side": "elyos",
+    "level": 45,
+    "where_en": "Verteron",
+    "where_es": "",
+    "string_key": "String_STR_M_L1_RI_Kasia_01_Named_01_body"
+  },
+  "101013": {
+    "en": "Centurion Demiros",
+    "es": "Centurión Demiros",
+    "side": "elyos",
+    "level": 45,
+    "where_en": "Verteron",
+    "where_es": "",
+    "string_key": "String_STR_M_L1_AH_B_SpiritKnt_Named_body"
+  },
+  "101014": {
+    "en": "Divine Ansas",
+    "es": "Ansas divina",
+    "side": "elyos",
+    "level": 45,
+    "where_en": "Verteron",
+    "where_es": "",
+    "string_key": "String_STR_M_L1_AH_C_Guardit_Named_body"
+  },
+  "101015": {
+    "en": "Harvest Manager Moshav",
+    "es": "Administrador de cosecha Moshav",
+    "side": "elyos",
+    "level": 45,
+    "where_en": "Verteron",
+    "where_es": "",
+    "string_key": "String_STR_M_L1_DP_DrakanElite_03_Named_body"
+  },
+  "101016": {
+    "en": "Sentinel K'nash",
+    "es": "Celador K'nash",
+    "side": "elyos",
+    "level": 45,
+    "where_en": "Verteron",
+    "where_es": "",
+    "string_key": "String_STR_M_L1_DP_BeritraD_04_Named_body"
+  },
+  "101017": {
+    "en": "Scholar Aulla",
+    "es": "Erudito Aulla",
+    "side": "elyos",
+    "level": 45,
+    "where_en": "Verteron",
+    "where_es": "",
+    "string_key": "String_STR_M_L1_OV_A_OwlMagic_01_Named_body"
+  },
+  "101018": {
+    "en": "Forest Warrior Aullamu",
+    "es": "Guerrero del bosque Aullamu",
+    "side": "elyos",
+    "level": 45,
+    "where_en": "Verteron",
+    "where_es": "",
+    "string_key": "String_STR_M_L1_OV_A_OwlElite_01_Named_body"
+  },
+  "101019": {
+    "en": "Chaser Taulo",
+    "es": "Perseguidor Taulo",
+    "side": "elyos",
+    "level": 45,
+    "where_en": "Verteron",
+    "where_es": "",
+    "string_key": "String_STR_M_L1_OV_C_OwlElite_01_CV01_Named_body"
+  },
+  "101020": {
+    "en": "Researcher Setram",
+    "es": "Investigador Setram",
+    "side": "elyos",
+    "level": 45,
+    "where_en": "Verteron",
+    "where_es": "",
+    "string_key": "String_STR_M_L1_Nahid_C_BeritraB_01_002_body"
+  },
+  "101021": {
+    "en": "Eternal Gartua",
+    "es": "Gartua de eternidad",
+    "side": "elyos",
+    "level": 51,
+    "where_en": "Verteron",
+    "where_es": "",
+    "string_key": "String_STR_M_FE_IoE_OdiumGartua_01_body"
+  },
+  "101022": {
+    "en": "Silent Dartan",
+    "es": "Dartan del silencio",
+    "side": "elyos",
+    "level": 48,
+    "where_en": "Verteron",
+    "where_es": "",
+    "string_key": "String_STR_M_D1_FieldBoss_BeritraD_01_001_body"
+  },
+  "101023": {
+    "en": "Soul Ruler Kashapa",
+    "es": "Gobernante de almas Kashapa",
+    "side": "elyos",
+    "level": 48,
+    "where_en": "Verteron",
+    "where_es": "",
+    "string_key": "String_STR_M_D1_FieldBoss_Kashapa_01_body"
+  },
+  "101024": {
+    "en": "High Commander Lagta",
+    "es": "Comandante de Lagta",
+    "side": "elyos",
+    "level": 48,
+    "where_en": "Verteron",
+    "where_es": "",
+    "string_key": "String_STR_M_D1_FieldBoss_Lagta_01_body"
+  },
+  "111001": {
+    "en": "Melted Danar",
+    "es": "Danar fundido",
+    "side": "asmodian",
+    "level": 45,
+    "where_en": "Altgard",
+    "where_es": "",
+    "string_key": "String_STR_M_D1_DC_DranaVar_EL_01_body"
+  },
+  "111002": {
+    "en": "Black Warrior Aed",
+    "es": "Guerrero negro Aed",
+    "side": "asmodian",
+    "level": 45,
+    "where_en": "Altgard",
+    "where_es": "",
+    "string_key": "String_STR_M_D1_UC_SuraWar_05_01_body"
+  },
+  "111003": {
+    "en": "Faithful Rajit",
+    "es": "Rajit leal",
+    "side": "asmodian",
+    "level": 45,
+    "where_en": "Altgard",
+    "where_es": "",
+    "string_key": "String_STR_M_D1_SW_DracoWar_01_V02_01_body"
+  },
+  "111004": {
+    "en": "Berserker Vargor",
+    "es": "",
+    "side": "asmodian",
+    "level": 45,
+    "where_en": "Altgard",
+    "where_es": "",
+    "string_key": "String_STR_M_D1_SW_Varg_03_01_body"
+  },
+  "111005": {
+    "en": "Predator Garsan",
+    "es": "Garsan depredador",
+    "side": "asmodian",
+    "level": 45,
+    "where_en": "Altgard",
+    "where_es": "",
+    "string_key": "String_STR_M_D1_MF_UrsussElite_01_001_body"
+  },
+  "111006": {
+    "en": "Blood Warrior Lannar",
+    "es": "Guerrero sangriento Lannar",
+    "side": "asmodian",
+    "level": 45,
+    "where_en": "Altgard",
+    "where_es": "",
+    "string_key": "String_STR_M_D1_MF_DranaVar_02_body"
+  },
+  "111007": {
+    "en": "Deceiver Trid",
+    "es": "Impostora Trid",
+    "side": "asmodian",
+    "level": 45,
+    "where_en": "Altgard",
+    "where_es": "",
+    "string_key": "String_STR_M_D1_SH_NornirVar_02_01_body"
+  },
+  "111008": {
+    "en": "Blue Wave Kelpina",
+    "es": "Kelpina de onda azul",
+    "side": "asmodian",
+    "level": 45,
+    "where_en": "Altgard",
+    "where_es": "",
+    "string_key": "String_STR_M_D1_PF_WaterEle_Elite_01_01_body"
+  },
+  "111009": {
+    "en": "High Overseer Nutah",
+    "es": "Nutah supervisor jefe",
+    "side": "asmodian",
+    "level": 45,
+    "where_en": "Altgard",
+    "where_es": "",
+    "string_key": "String_STR_M_D1_DR_SkurvWar_04_001_body"
+  },
+  "111010": {
+    "en": "Advisor Resana",
+    "es": "Consejero Resana",
+    "side": "asmodian",
+    "level": 45,
+    "where_en": "Altgard",
+    "where_es": "",
+    "string_key": "String_STR_M_D1_DR_DrakanElite_03_001_body"
+  },
+  "111011": {
+    "en": "Special Operations Leader Linx",
+    "es": "Líder de operaciones especiales Linx",
+    "side": "asmodian",
+    "level": 45,
+    "where_en": "Altgard",
+    "where_es": "",
+    "string_key": "String_STR_M_D1_BR_FighterM_01_body"
+  },
+  "111012": {
+    "en": "Desecrator Newbold",
+    "es": "Profanador Newbold",
+    "side": "asmodian",
+    "level": 45,
+    "where_en": "Altgard",
+    "where_es": "",
+    "string_key": "String_STR_M_D1_BR_AltKnife_08_001_body"
+  },
+  "111013": {
+    "en": "Specter Archon Axios",
+    "es": "Akan de ánimas perdidas Axios",
+    "side": "asmodian",
+    "level": 45,
+    "where_en": "Altgard",
+    "where_es": "",
+    "string_key": "String_STR_M_D1_BR_DstrArchonE_01_001_body"
+  },
+  "111014": {
+    "en": "Addicted Hardirun",
+    "es": "Hardirun envenenado",
+    "side": "asmodian",
+    "level": 45,
+    "where_en": "Altgard",
+    "where_es": "",
+    "string_key": "String_STR_M_D1_FD_Shulack_05_01_body"
+  },
+  "111015": {
+    "en": "Executioner Barthien",
+    "es": "Barthien verdugo",
+    "side": "asmodian",
+    "level": 45,
+    "where_en": "Altgard",
+    "where_es": "",
+    "string_key": "String_STR_M_D1_WGC_AltKnife_04_01_body"
+  },
+  "111016": {
+    "en": "Drakan Battalion Weapon Guruta",
+    "es": "Drakan artillería de destacamento Guruta",
+    "side": "asmodian",
+    "level": 45,
+    "where_en": "Altgard",
+    "where_es": "",
+    "string_key": "String_STR_M_D1_EGC_BeritraD_04_001_body"
+  },
+  "111017": {
+    "en": "Veteran Shujakan",
+    "es": "Veterano Shujakan",
+    "side": "asmodian",
+    "level": 45,
+    "where_en": "Altgard",
+    "where_es": "",
+    "string_key": "String_STR_M_D1_BCV_KrallElite_01_01_body"
+  },
+  "111018": {
+    "en": "Visionary Karuka",
+    "es": "Karuka visionario",
+    "side": "asmodian",
+    "level": 45,
+    "where_en": "Altgard",
+    "where_es": "",
+    "string_key": "String_STR_M_D1_BCV_KrallElite_02_01_body"
+  },
+  "111019": {
+    "en": "Dark Shadow Vishwada",
+    "es": "Vishwada de oscuridad",
+    "side": "asmodian",
+    "level": 45,
+    "where_en": "Altgard",
+    "where_es": "",
+    "string_key": "String_STR_M_D1_LF_Sarca_Elite_01_01_body"
+  },
+  "111020": {
+    "en": "Sharp Shylak",
+    "es": "Shylak agudo",
+    "side": "asmodian",
+    "level": 45,
+    "where_en": "Altgard",
+    "where_es": "",
+    "string_key": "String_STR_M_D1_IS_DracoElite_01_001_body"
+  },
+  "111021": {
+    "en": "Immortal Gartua",
+    "es": "Gartua inmortal",
+    "side": "asmodian",
+    "level": 51,
+    "where_en": "Altgard",
+    "where_es": "",
+    "string_key": "String_STR_M_FE_IoE_OdiumGartua_02_body"
+  },
+  "111022": {
+    "en": "High Commander Lagta",
+    "es": "Comandante de Lagta",
+    "side": "asmodian",
+    "level": 48,
+    "where_en": "Altgard",
+    "where_es": "",
+    "string_key": "String_STR_M_D1_FieldBoss_Lagta_01_body"
+  },
+  "111023": {
+    "en": "Soul Ruler Kashapa",
+    "es": "Gobernante de almas Kashapa",
+    "side": "asmodian",
+    "level": 48,
+    "where_en": "Altgard",
+    "where_es": "",
+    "string_key": "String_STR_M_D1_FieldBoss_Kashapa_01_body"
+  },
+  "111024": {
+    "en": "Silent Dartan",
+    "es": "Dartan del silencio",
+    "side": "asmodian",
+    "level": 48,
+    "where_en": "Altgard",
+    "where_es": "",
+    "string_key": "String_STR_M_D1_FieldBoss_BeritraD_01_001_body"
+  },
+  "2001": {
+    "en": "Argo, the Spirit King",
+    "es": "Rey Espíritu Agro",
+    "side": null,
+    "level": 65,
+    "where_en": "Chaotic Lower Reshanta",
+    "where_es": "Reshanta Inferior del Caos",
+    "string_key": "String_STR_M_AR1_WSA_ELEKING_01_V02_001_body"
+  }
+}
