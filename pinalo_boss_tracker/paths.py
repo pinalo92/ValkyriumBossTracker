@@ -33,6 +33,9 @@ def is_portable() -> bool:
         return True
     if os.environ.get("PINALO_DATA_DIR", "").strip():
         return True
+    # EXE congelado = portable: DB/cache en .\data junto al .exe
+    if getattr(sys, "frozen", False):
+        return True
     for root in install_roots():
         if (root / "portable.txt").exists() or (root / "PINALO_PORTABLE").exists():
             return True
