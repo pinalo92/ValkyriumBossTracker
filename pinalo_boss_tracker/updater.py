@@ -18,7 +18,7 @@ DEFAULT_MANIFEST_NAME = "update_manifest.json"
 # URL estable del manifiesto en GitHub (se rellena al publicar el repo).
 # Formato: https://raw.githubusercontent.com/USER/REPO/main/update_manifest.json
 DEFAULT_MANIFEST_URL = (
-    "https://raw.githubusercontent.com/pinalo92/ValkyriumBossTracker/main/update_manifest.json"
+    "https://raw.githubusercontent.com/pinalo92/ValkyriumBossTracker/master/update_manifest.json"
 )
 
 

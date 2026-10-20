@@ -58,4 +58,6 @@ git push origin HEAD
 
 Write-Host ""
 Write-Host "Listo. Manifest estable:"
-Write-Host "https://raw.githubusercontent.com/$Repo/main/update_manifest.json"
+$branch = (gh repo view --json defaultBranchRef -q .defaultBranchRef.name)
+if (-not $branch) { $branch = "master" }
+Write-Host "https://raw.githubusercontent.com/$Repo/$branch/update_manifest.json"
