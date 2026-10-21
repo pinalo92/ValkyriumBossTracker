@@ -19,8 +19,9 @@ if (-not $Version) { throw "No se pudo leer __version__" }
 
 $ZipName = "ValkyriumBossTracker_v$Version.zip"
 $ZipPath = Join-Path $Root "dist\$ZipName"
-if (-not (Test-Path $ZipPath)) {
-    throw "Falta $ZipPath — ejecuta build_exe.bat antes"
+$ExePath = Join-Path $Root "dist\Valkyrium_OneFile\ValkyriumBossTracker.exe"
+if (-not (Test-Path $ZipPath) -and -not (Test-Path $ExePath)) {
+    throw "Falta zip u onefile — ejecuta build_exe.bat y/o build_onefile.bat"
 }
 
 $Repo = (gh repo view --json nameWithOwner -q .nameWithOwner)
@@ -28,10 +29,12 @@ if (-not $Repo) { throw "No hay repo GitHub (gh repo view falló)" }
 
 $Tag = "v$Version"
 $AssetUrl = "https://github.com/$Repo/releases/download/$Tag/$ZipName"
+$ExeUrl = "https://github.com/$Repo/releases/download/$Tag/ValkyriumBossTracker.exe"
 
-$Manifest = @{
+$Manifest = [ordered]@{
     version = $Version
     url     = $AssetUrl
+    exe_url = $ExeUrl
     notes   = $Notes
 } | ConvertTo-Json -Compress
 
@@ -41,14 +44,17 @@ Set-Content -Path $ManifestPath -Value $Manifest -Encoding utf8
 Write-Host "Repo: $Repo"
 Write-Host "Tag:  $Tag"
 Write-Host "Zip:  $ZipPath"
-Write-Host "URL:  $AssetUrl"
+Write-Host "Exe:  $ExePath"
 
-# Crear release (o actualizar si existe)
+$assets = @()
+if (Test-Path $ZipPath) { $assets += $ZipPath }
+if (Test-Path $ExePath) { $assets += $ExePath }
+
 $exists = gh release view $Tag 2>$null
 if ($LASTEXITCODE -eq 0) {
-    gh release upload $Tag $ZipPath --clobber
+    foreach ($a in $assets) { gh release upload $Tag $a --clobber }
 } else {
-    gh release create $Tag $ZipPath --title "Valkyrium v$Version" --notes $Notes
+    gh release create $Tag @assets --title "Valkyrium v$Version" --notes $Notes
 }
 
 # Subir manifiesto al branch main (URL estable para auto-update)

@@ -1,5 +1,11 @@
 # Changelog — Valkyrium Boss Tracker (by Pinalo)
 
+## v0.2.1
+
+- Auto-update del **EXE onefile**: descarga el `.exe` nuevo, lo sustituye y reinicia
+- Manifiesto con `exe_url` + `url` (zip carpeta)
+- Toast al detectar versión nueva
+
 ## v0.2.0
 
 ### Overlay y UX

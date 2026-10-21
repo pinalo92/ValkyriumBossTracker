@@ -1,5 +1,1 @@
-{
-  "notes": "Primera release publica: overlay live, WB clipboard, favoritos, Kaira, toast, wizard",
-  "version": "0.2.0",
-  "url": "https://github.com/pinalo92/ValkyriumBossTracker/releases/download/v0.2.0/ValkyriumBossTracker_v0.2.0.zip"
-}
+{"exe_url":"https://github.com/pinalo92/ValkyriumBossTracker/releases/download/v0.2.1/ValkyriumBossTracker.exe","notes":"Auto-update del EXE onefile. Quien tiene v0.2.0 exe: descarga v0.2.1 una vez; luego updates solos.","url":"https://github.com/pinalo92/ValkyriumBossTracker/releases/download/v0.2.0/ValkyriumBossTracker_v0.2.0.zip","version":"0.2.1"}

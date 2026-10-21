@@ -78,7 +78,13 @@ from .. import __version__
 from ..hotkey import GlobalHotkey
 from ..paths import app_dir, is_portable
 from ..schedule import next_kaira_window
-from ..updater import apply_zip_update, check_update, resolve_manifest_url
+from ..updater import (
+    apply_exe_update,
+    apply_zip_update,
+    check_update,
+    is_onefile_build,
+    resolve_manifest_url,
+)
 from .about import AboutDialog
 from .next_target import NextTargetPanel
 from .pins import PinStrip, PinsOverlay, make_pins_tab, select_pin_bosses
@@ -1382,13 +1388,18 @@ class MainWindow(QMainWindow):
         show_toast("Muerto", boss.name_es, ms=1800)
 
     def check_for_updates(self, silent: bool = True):
+        import sys
+
         root = Path(app_dir())
         # En portable app_dir es data/; el exe está un nivel arriba
         portable_root = root.parent if (root.name == "data" and is_portable()) else root
-        if is_portable() and (portable_root / "PinaloBossTracker.exe").exists():
+        if is_portable() and (
+            (portable_root / "PinaloBossTracker.exe").exists()
+            or (portable_root / "ValkyriumBossTracker.exe").exists()
+        ):
             pass
         elif is_portable():
-            portable_root = Path.cwd()
+            portable_root = Path(sys.executable).resolve().parent if getattr(sys, "frozen", False) else Path.cwd()
         url = resolve_manifest_url(
             portable_root if is_portable() else root,
             self.settings.update_manifest_url or "",
@@ -1398,9 +1409,7 @@ class MainWindow(QMainWindow):
                 QMessageBox.information(
                     self,
                     "Actualizaciones",
-                    "No hay URL de manifiesto.\n\n"
-                    "En Ruta / sync pega una URL JSON con:\n"
-                    '{"version":"0.2.1","url":"https://.../portable.zip"}',
+                    "No hay URL de manifiesto de actualizaciones.",
                 )
             return
         try:
@@ -1418,38 +1427,46 @@ class MainWindow(QMainWindow):
                 )
             return
         if silent:
-            if hasattr(self, "tray"):
-                self.tray.showMessage(
-                    "Pinalo",
-                    f"Hay v{info.version} disponible. Menú → Buscar actualización.",
-                    QSystemTrayIcon.MessageIcon.Information,
-                    5000,
-                )
+            show_toast(
+                "Actualización",
+                f"v{info.version} disponible · menú bandeja → Buscar actualización",
+                ms=4500,
+            )
             return
         notes = f"\n\n{info.notes}" if info.notes else ""
         ans = QMessageBox.question(
             self,
             "Actualización disponible",
-            f"v{info.current} → v{info.version}{notes}\n\n¿Descargar ahora?",
+            f"v{info.current} → v{info.version}{notes}\n\n¿Descargar e instalar ahora?",
         )
         if ans != QMessageBox.StandardButton.Yes:
             return
+        onefile = is_onefile_build()
         try:
-            bat = apply_zip_update(info.url, portable_root)
+            if onefile:
+                if not info.exe_url:
+                    raise RuntimeError("El manifiesto no tiene exe_url para el EXE portable")
+                bat = apply_exe_update(info.exe_url, Path(sys.executable))
+                workdir = Path(sys.executable).resolve().parent
+            else:
+                if not info.url:
+                    raise RuntimeError("El manifiesto no tiene url (zip)")
+                bat = apply_zip_update(info.url, portable_root)
+                workdir = portable_root
         except Exception as e:
             QMessageBox.warning(self, "Actualizaciones", f"Fallo al descargar: {e}")
             return
         QMessageBox.information(
             self,
             "Actualizaciones",
-            "Paquete listo. Se cerrará la app y se aplicará la actualización.",
+            "Descarga lista. Se cerrará la app y se aplicará la actualización.",
         )
         self._really_quit = True
         if hasattr(self, "_hotkey"):
             self._hotkey.stop()
         from PySide6.QtCore import QProcess
 
-        QProcess.startDetached(str(bat), [], str(portable_root))
+        QProcess.startDetached(str(bat), [], str(workdir))
         QApplication.instance().quit()
 
     def _fill_table(self):

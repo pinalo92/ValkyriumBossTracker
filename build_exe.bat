@@ -50,11 +50,12 @@ if not exist "%OUT%\data" mkdir "%OUT%\data"
   echo start "" "PinaloBossTracker.exe"
 ) > "%OUT%\Iniciar_Portable.bat"
 
-rem Changelog + zip de distribución
+rem Changelog + zip de distribución (versión desde __init__)
 copy /y "CHANGELOG.md" "%OUT%\CHANGELOG.md" >nul
-set ZIP=dist\ValkyriumBossTracker_v0.2.0.zip
+for /f "delims=" %%V in ('%PY% -c "from pinalo_boss_tracker import __version__; print(__version__)"') do set VER=%%V
+set ZIP=dist\ValkyriumBossTracker_v%VER%.zip
 if exist "%ZIP%" del /f /q "%ZIP%"
-%PY% -c "import shutil; from pathlib import Path; shutil.make_archive(str(Path(r'dist')/'ValkyriumBossTracker_v0.2.0'), 'zip', r'dist', 'PinaloBossTracker_Portable')"
+%PY% -c "import shutil; from pathlib import Path; from pinalo_boss_tracker import __version__; shutil.make_archive(str(Path(r'dist')/f'ValkyriumBossTracker_v{__version__}'), 'zip', r'dist', 'PinaloBossTracker_Portable')"
 
 echo.
 echo Listo.
