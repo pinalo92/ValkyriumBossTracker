@@ -1,4 +1,4 @@
-"""Wizard de primera vez: servidor → facción → overlay."""
+"""Wizard de primera vez: región/servidor → facción → overlay."""
 
 from __future__ import annotations
 
@@ -9,13 +9,13 @@ from PySide6.QtWidgets import (
     QDialogButtonBox,
     QHBoxLayout,
     QLabel,
-    QLineEdit,
     QStackedWidget,
     QVBoxLayout,
     QWidget,
 )
 
 from ..models import AppSettings
+from ..servers import REGIONS, display_label, resolve_named_server, servers_for_region
 from .brand import BLUE_TP, PURPLE, TEXT_MUTED, font_display
 
 
@@ -24,7 +24,7 @@ class FirstRunWizard(QDialog):
         super().__init__(parent)
         self.setWindowTitle("Valkyrium · Bienvenida")
         self.setModal(True)
-        self.setMinimumWidth(420)
+        self.setMinimumWidth(440)
         self.settings = settings
         self._stack = QStackedWidget()
         self._stack.addWidget(self._page_server())
@@ -62,23 +62,50 @@ class FirstRunWizard(QDialog):
     def _page_server(self) -> QWidget:
         w = QWidget()
         lay = QVBoxLayout(w)
-        lay.addWidget(QLabel("¿En qué servidor juegas?"))
-        self.ed_server = QLineEdit(self.settings.server or "Kaisinel")
-        self.ed_server.setPlaceholderText("Kaisinel / Lumiel / …")
-        lay.addWidget(self.ed_server)
+        lay.addWidget(QLabel("Región y servidor"))
         row = QHBoxLayout()
         row.addWidget(QLabel("Región"))
         self.cb_region = QComboBox()
-        self.cb_region.addItems(["EU", "NA_EAST", "NA_WEST"])
+        self.cb_region.addItems(REGIONS)
         self.cb_region.setCurrentText(self.settings.region or "EU")
         row.addWidget(self.cb_region, 1)
         lay.addLayout(row)
-        tip = QLabel("Se usa para el feed live de A2Tools y el horario de Kaira.")
+
+        lay.addWidget(QLabel("Servidor"))
+        self.cb_server = QComboBox()
+        self.cb_server.setMinimumWidth(280)
+        lay.addWidget(self.cb_server)
+        self.cb_region.currentTextChanged.connect(self._refill_servers)
+        self._refill_servers(self.cb_region.currentText())
+
+        tip = QLabel(
+            "El servidor elige el feed live (vivos/HP de tu mundo).\n"
+            "La lista de bosses es la misma; cambia quién está up."
+        )
         tip.setWordWrap(True)
         tip.setStyleSheet(f"color:{TEXT_MUTED};font-size:11px;")
         lay.addWidget(tip)
         lay.addStretch(1)
         return w
+
+    def _refill_servers(self, region: str = "EU"):
+        fac = getattr(self, "cb_faction", None)
+        faction = fac.currentText() if fac else (self.settings.faction or None)
+        # En paso 1 aún no hay facción forzada: mostrar ambos
+        rows = servers_for_region(region, None)
+        want = (self.settings.server or "Kaisinel").strip().lower()
+        self.cb_server.blockSignals(True)
+        self.cb_server.clear()
+        idx = 0
+        for i, s in enumerate(rows):
+            self.cb_server.addItem(display_label(s), s.server_id)
+            self.cb_server.setItemData(i, s.name, Qt.ItemDataRole.UserRole + 1)
+            if s.name.lower() == want and (
+                not faction or s.faction == faction
+            ):
+                idx = i
+        self.cb_server.setCurrentIndex(idx)
+        self.cb_server.blockSignals(False)
 
     def _page_faction(self) -> QWidget:
         w = QWidget()
@@ -102,9 +129,8 @@ class FirstRunWizard(QDialog):
         tips = QLabel(
             "• Arrastra el overlay para moverlo (se recuerda la posición)\n"
             "• Rueda = opacidad · Ctrl+rueda = escala\n"
-            "• Clic pin = copiar #TP · Clic der. = marcar muerto\n"
-            "• Ctrl+Shift+B = mostrar/ocultar\n"
-            "• ★ Favoritos: clic der. → Favorito (siempre visibles)"
+            "• Clic pin = copiar WB · Clic der. = muerto / favorito\n"
+            "• Ctrl+Shift+B = mostrar/ocultar"
         )
         tips.setWordWrap(True)
         tips.setStyleSheet(f"color:{TEXT_MUTED};")
@@ -126,8 +152,17 @@ class FirstRunWizard(QDialog):
     def _go_next(self):
         i = self._stack.currentIndex()
         if i == 0:
-            self.settings.server = self.ed_server.text().strip() or "Kaisinel"
             self.settings.region = self.cb_region.currentText()
+            name = self.cb_server.currentData(Qt.ItemDataRole.UserRole + 1)
+            sid = self.cb_server.currentData()
+            self.settings.server = str(name or "Kaisinel")
+            if sid:
+                self.settings.a2tools_server_id = int(sid)
+            hit = resolve_named_server(self.settings.server, self.settings.region)
+            if hit:
+                self.settings.faction = hit.faction
+                if hasattr(self, "cb_faction"):
+                    self.cb_faction.setCurrentText(hit.faction)
         elif i == 1:
             self.settings.faction = self.cb_faction.currentText()
         if i >= self._stack.count() - 1:

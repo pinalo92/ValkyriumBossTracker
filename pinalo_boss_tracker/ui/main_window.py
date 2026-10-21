@@ -238,19 +238,21 @@ class MainWindow(QMainWindow):
         titles.addWidget(s)
         header.addLayout(titles, 1)
 
+        from ..servers import REGIONS, display_label, servers_for_region
+
         self.region = QComboBox()
-        self.region.addItems(["EU", "NA_EAST", "NA_WEST"])
-        self.region.setCurrentText(self.settings.region)
+        self.region.addItems(REGIONS)
+        self.region.setCurrentText(self.settings.region or "EU")
         self.faction = QComboBox()
         self.faction.addItems(["elyos", "asmodian"])
-        self.faction.setCurrentText(self.settings.faction)
-        self.server = QLineEdit()
-        self.server.setPlaceholderText("Servidor (ej. Kaisinel)")
-        self.server.setText(self.settings.server or "Kaisinel")
-        self.server.setMaximumWidth(140)
-        self.region.currentTextChanged.connect(self._save_prefs)
-        self.faction.currentTextChanged.connect(self._save_prefs)
-        self.server.editingFinished.connect(self._save_prefs)
+        self.faction.setCurrentText(self.settings.faction or "elyos")
+        self.server = QComboBox()
+        self.server.setMinimumWidth(180)
+        self.server.setMaximumWidth(260)
+        self._refill_server_combo()
+        self.region.currentTextChanged.connect(self._on_region_or_faction)
+        self.faction.currentTextChanged.connect(self._on_region_or_faction)
+        self.server.currentIndexChanged.connect(self._save_prefs)
         header.addWidget(QLabel("Región"))
         header.addWidget(self.region)
         header.addWidget(QLabel("Servidor"))
@@ -505,10 +507,39 @@ class MainWindow(QMainWindow):
         act_refresh.triggered.connect(self.refresh_all)
         self.addAction(act_refresh)
 
+    def _refill_server_combo(self):
+        from ..servers import display_label, servers_for_region
+
+        region = self.region.currentText() if hasattr(self, "region") else "EU"
+        faction = self.faction.currentText() if hasattr(self, "faction") else None
+        rows = servers_for_region(region, faction)
+        want_name = (self.settings.server or "Kaisinel").strip().lower()
+        want_id = int(self.settings.a2tools_server_id or 0)
+        self.server.blockSignals(True)
+        self.server.clear()
+        pick = 0
+        for i, s in enumerate(rows):
+            self.server.addItem(display_label(s), s.server_id)
+            self.server.setItemData(i, s.name, Qt.ItemDataRole.UserRole + 1)
+            if want_id and s.server_id == want_id:
+                pick = i
+            elif s.name.lower() == want_name:
+                pick = i
+        self.server.setCurrentIndex(pick)
+        self.server.blockSignals(False)
+
+    def _on_region_or_faction(self, *_args):
+        self._refill_server_combo()
+        self._save_prefs()
+
     def _save_prefs(self):
         self.settings.region = self.region.currentText()
         self.settings.faction = self.faction.currentText()
-        self.settings.server = self.server.text().strip() or "Kaisinel"
+        name = self.server.currentData(Qt.ItemDataRole.UserRole + 1)
+        sid = self.server.currentData()
+        self.settings.server = str(name or "Kaisinel")
+        if sid:
+            self.settings.a2tools_server_id = int(sid)
         self.settings.aion2timers_api_key = self.api_key.text().strip()
         self.settings.aion2timers_personal_token = self.personal_tok.text().strip()
         if hasattr(self, "discord_tok"):
@@ -517,11 +548,13 @@ class MainWindow(QMainWindow):
             self.settings.discord_auto_sync = self.discord_auto.isChecked()
         if hasattr(self, "a2_auto"):
             self.settings.a2tools_auto_sync = self.a2_auto.isChecked()
+            # serverId ya viene del desplegable; el campo manual es override opcional
             raw = self.a2_server_id.text().strip()
-            try:
-                self.settings.a2tools_server_id = int(raw) if raw else 0
-            except ValueError:
-                self.settings.a2tools_server_id = 0
+            if raw:
+                try:
+                    self.settings.a2tools_server_id = int(raw)
+                except ValueError:
+                    pass
         if hasattr(self, "chk_tray"):
             self.settings.start_in_tray = self.chk_tray.isChecked()
             self.settings.overlay_on_start = self.chk_overlay_start.isChecked()
@@ -590,6 +623,7 @@ class MainWindow(QMainWindow):
         sid, _ = resolve_server_id(
             self.settings.a2tools_server_id or None,
             self.settings.server or "Kaisinel",
+            region=self.settings.region or "EU",
         )
         ids = faction_follow_ids(self.settings.faction or "elyos")
         if self._live_bridge is None:
@@ -698,6 +732,7 @@ class MainWindow(QMainWindow):
                 sid, _ = resolve_server_id(
                     self.settings.a2tools_server_id or None,
                     self.settings.server or "Kaisinel",
+                    region=self.settings.region or "EU",
                 )
                 if sid != self._live_bridge._server:
                     self._stop_a2tools_live()
@@ -719,6 +754,7 @@ class MainWindow(QMainWindow):
                 server_name=self.settings.server or "Kaisinel",
                 faction=self.settings.faction or "elyos",
                 allow_cdn=allow_cdn,
+                region=self.settings.region or "EU",
             )
             for obs in obs_list:
                 prev = self.observations.get(obs.boss_id)

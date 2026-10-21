@@ -1,5 +1,11 @@
 # Changelog — Valkyrium Boss Tracker (by Pinalo)
 
+## v0.2.2
+
+- Lista desplegable de servidores EU / NA East / NA West (Kaisinel, Lumiel, …) con serverId correcto
+- Instalador `ValkyriumSetup` (icono escritorio + desinstalar) vía Inno Setup
+- Notas de firma/SmartScreen en `installer/SIGNING.md` (requiere certificado de pago)
+
 ## v0.2.1
 
 - Auto-update del **EXE onefile**: descarga el `.exe` nuevo, lo sustituye y reinicia

@@ -40,11 +40,6 @@ A2_PREFS = A2_PLUGIN_DATA / "prefs.json"
 LIVE_MAX_AGE_MS = 120_000
 FIELD_MAP_PATH = package_data_dir() / "a2tools_field_ids.json"
 
-SERVER_NAME_TO_ID = {
-    "kaisinel": 1304,
-}
-
-
 def _live_candidates() -> list[Path]:
     from ..paths import app_dir
 
@@ -122,16 +117,21 @@ def read_live_feed(max_age_ms: int = LIVE_MAX_AGE_MS) -> Optional[dict]:
 
 
 def resolve_server_id(
-    explicit: Optional[int] = None, server_name: str = ""
+    explicit: Optional[int] = None,
+    server_name: str = "",
+    region: str = "EU",
 ) -> tuple[int, str]:
     if explicit and int(explicit) > 0:
         return int(explicit), "settings"
     local = read_a2tools_last_server()
     if local:
         return local, "a2tools-prefs"
-    key = _normalize(server_name or "")
-    if key in SERVER_NAME_TO_ID:
-        return SERVER_NAME_TO_ID[key], "name-map"
+    from ..servers import server_id_for
+
+    mapped = server_id_for(server_name or "", region or "EU")
+    if mapped:
+        return int(mapped), "name-map"
+    # fallback EU Kaisinel
     return 1304, "default-kaisinel"
 
 
@@ -279,8 +279,9 @@ def sync_from_a2tools(
     server_name: str = "Kaisinel",
     faction: str = "elyos",
     allow_cdn: bool = True,
+    region: str = "EU",
 ) -> tuple[list[BossObservation], str, int]:
-    sid, how = resolve_server_id(server_id, server_name)
+    sid, how = resolve_server_id(server_id, server_name, region=region)
     live = read_live_feed()
     if live:
         try:
