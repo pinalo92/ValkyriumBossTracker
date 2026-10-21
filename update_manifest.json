@@ -1,7 +1,7 @@
 {
-  "version": "0.2.6",
-  "notes": "Al cerrar Valkyrium también se cierra el DPS meter. Resto igual que 0.2.5.",
+  "version": "0.2.7",
+  "notes": "DPS meter fuera de la barra de tareas (fix Win11). Al cerrar Valkyrium se cierra el meter.",
   "url": "https://github.com/pinalo92/ValkyriumBossTracker/releases/download/v0.2.0/ValkyriumBossTracker_v0.2.0.zip",
-  "exe_url": "https://github.com/pinalo92/ValkyriumBossTracker/releases/download/v0.2.6/ValkyriumBossTracker.exe",
+  "exe_url": "https://github.com/pinalo92/ValkyriumBossTracker/releases/download/v0.2.7/ValkyriumBossTracker.exe",
   "setup_url": "https://github.com/pinalo92/ValkyriumBossTracker/releases/download/v0.2.2/ValkyriumSetup_v0.2.2.exe"
 }

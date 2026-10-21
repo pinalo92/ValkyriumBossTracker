@@ -182,7 +182,7 @@ def _is_main_meter_title(title: str) -> bool:
 
 
 def _iter_meter_hwnds():
-    """HWND visibles del proceso A2Tools con título de medidor principal."""
+    """HWND visibles grandes del proceso A2Tools (el medidor principal)."""
     try:
         import ctypes
         from ctypes import wintypes
@@ -204,23 +204,87 @@ def _iter_meter_hwnds():
         user32.GetWindowThreadProcessId(hwnd, ctypes.byref(pid))
         if int(pid.value) not in pids:
             return True
-        n = user32.GetWindowTextLengthW(hwnd)
-        if n <= 0:
-            return True
-        buf = ctypes.create_unicode_buffer(n + 1)
-        user32.GetWindowTextW(hwnd, buf, n + 1)
-        if not _is_main_meter_title(buf.value or ""):
+        # Ignorar dueño (widgets hijos raros); solo top-level sin owner
+        if user32.GetWindow(hwnd, 4):  # GW_OWNER=4
             return True
         rect = wintypes.RECT()
         user32.GetWindowRect(hwnd, ctypes.byref(rect))
         w = int(rect.right - rect.left)
         h = int(rect.bottom - rect.top)
-        if w >= 120 and h >= 40:
-            found.append(int(hwnd))
+        if w < 120 or h < 40:
+            return True
+        n = user32.GetWindowTextLengthW(hwnd)
+        title = ""
+        if n > 0:
+            buf = ctypes.create_unicode_buffer(n + 1)
+            user32.GetWindowTextW(hwnd, buf, n + 1)
+            title = buf.value or ""
+        # Preferir título conocido; si no, ventanas grandes del proceso
+        if title and not _is_main_meter_title(title):
+            # p.ej. Settings / History de A2Tools — también fuera de la barra
+            if "a2tools" not in title.lower() and "valkyrium" not in title.lower():
+                if "dps" not in title.lower() and "meter" not in title.lower():
+                    # dejar pasar solo si parece la ventana principal sin título raro
+                    if w < 200:
+                        return True
+        found.append(int(hwnd))
         return True
 
     user32.EnumWindows(_cb, 0)
     yield from found
+
+
+def _taskbar_delete_tab(hwnd: int) -> bool:
+    """ITaskbarList::DeleteTab — más fiable en Windows 11 que solo TOOLWINDOW."""
+    try:
+        import ctypes
+        import uuid
+        from ctypes import HRESULT, POINTER, byref, c_ulong, c_void_p, wintypes
+    except ImportError:
+        return False
+
+    class GUID(ctypes.Structure):
+        _fields_ = [
+            ("Data1", ctypes.c_uint32),
+            ("Data2", ctypes.c_uint16),
+            ("Data3", ctypes.c_uint16),
+            ("Data4", ctypes.c_ubyte * 8),
+        ]
+
+    def _guid(s: str) -> GUID:
+        u = uuid.UUID(s)
+        g = GUID()
+        ctypes.memmove(byref(g), u.bytes_le, 16)
+        return g
+
+    ole32 = ctypes.OleDLL("ole32")
+    try:
+        ole32.CoInitialize(None)
+    except OSError:
+        pass
+
+    clsid = _guid("56FDF344-FD6D-11d0-958A-006097C9A090")
+    iid = _guid("56FDF342-FD6D-11d0-958A-006097C9A090")
+    punk = c_void_p()
+    # CLSCTX_INPROC_SERVER = 1
+    hr = ole32.CoCreateInstance(byref(clsid), None, 1, byref(iid), byref(punk))
+    if hr < 0 or not punk.value:
+        return False
+
+    # punk -> vtable*
+    vtbl = ctypes.cast(punk, POINTER(c_void_p))[0]
+    vtbl = ctypes.cast(vtbl, POINTER(c_void_p))
+
+    HrInit = ctypes.WINFUNCTYPE(HRESULT, c_void_p)(vtbl[3])
+    DeleteTab = ctypes.WINFUNCTYPE(HRESULT, c_void_p, wintypes.HWND)(vtbl[5])
+    Release = ctypes.WINFUNCTYPE(c_ulong, c_void_p)(vtbl[2])
+
+    try:
+        HrInit(punk)
+        hr = DeleteTab(punk, wintypes.HWND(hwnd))
+    finally:
+        Release(punk)
+    return hr >= 0
 
 
 def rename_meter_window(title: str = METER_WINDOW_TITLE) -> int:
@@ -234,19 +298,20 @@ def rename_meter_window(title: str = METER_WINDOW_TITLE) -> int:
     renamed = 0
     for hwnd in _iter_meter_hwnds():
         n = user32.GetWindowTextLengthW(hwnd)
-        buf = ctypes.create_unicode_buffer(n + 1)
-        user32.GetWindowTextW(hwnd, buf, n + 1)
+        buf = ctypes.create_unicode_buffer(max(n, 1) + 1)
+        if n:
+            user32.GetWindowTextW(hwnd, buf, n + 1)
         cur = (buf.value or "").strip()
-        if cur.lower() == "a2tools dps meter":
-            if user32.SetWindowTextW(hwnd, title):
+        if cur.lower() in ("a2tools dps meter", "") or _is_main_meter_title(cur):
+            if cur != title and user32.SetWindowTextW(hwnd, title):
                 renamed += 1
-        elif cur.lower() == title.lower():
-            renamed += 1
+            elif cur == title:
+                renamed += 1
     return renamed
 
 
 def hide_meter_from_taskbar() -> int:
-    """Quita el icono de la barra de tareas (WS_EX_TOOLWINDOW). El meter sigue visible."""
+    """Quita el icono de la barra de tareas. El meter sigue visible encima del juego."""
     try:
         import ctypes
     except ImportError:
@@ -260,18 +325,26 @@ def hide_meter_from_taskbar() -> int:
         except (OSError, ValueError, OverflowError):
             continue
         new_ex = (ex | WS_EX_TOOLWINDOW) & ~WS_EX_APPWINDOW
-        if new_ex == ex:
-            touched += 1
-            continue
-        try:
-            set_long(hwnd, GWL_EXSTYLE, new_ex)
-        except (OSError, ValueError, OverflowError):
-            continue
-        # Refrescar entrada de la barra de tareas sin robar foco
-        user32.ShowWindow(hwnd, SW_HIDE)
-        user32.ShowWindow(hwnd, SW_SHOWNA)
+        style_changed = new_ex != ex
+        if style_changed:
+            try:
+                set_long(hwnd, GWL_EXSTYLE, new_ex)
+            except (OSError, ValueError, OverflowError):
+                continue
+            # Refrescar sin robar foco
+            user32.ShowWindow(hwnd, SW_HIDE)
+            user32.ShowWindow(hwnd, SW_SHOWNA)
+        # Win11: borrar pestaña aunque el estilo ya estuviera bien
+        _taskbar_delete_tab(hwnd)
         touched += 1
     return touched
+
+
+def polish_meter_window(
+    title: str = METER_WINDOW_TITLE,
+) -> tuple[int, int]:
+    """Una pasada: renombrar + sacar de la barra (llamar también desde timer)."""
+    return rename_meter_window(title), hide_meter_from_taskbar()
 
 
 def polish_meter_window_retry(
@@ -282,8 +355,7 @@ def polish_meter_window_retry(
     """Renombra + saca de la barra de tareas (reintenta mientras arranca)."""
     renamed = hidden = 0
     for i in range(max(1, attempts)):
-        renamed = rename_meter_window(title)
-        hidden = hide_meter_from_taskbar()
+        renamed, hidden = polish_meter_window(title)
         if renamed > 0 and hidden > 0:
             return renamed, hidden
         if i + 1 < attempts:

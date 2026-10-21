@@ -1,5 +1,9 @@
 # Changelog — Valkyrium Boss Tracker (by Pinalo)
 
+## v0.2.7
+
+- Quitar el DPS meter de la barra de tareas de verdad (ITaskbarList + reaplicar cada 2s en Win11)
+
 ## v0.2.6
 
 - Al cerrar Valkyrium también se cierra el DPS meter (A2Tools)
