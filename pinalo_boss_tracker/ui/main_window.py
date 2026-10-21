@@ -53,7 +53,7 @@ from ..sources.aion2timers_api import (
     observations_from_my_timers,
     resolve_personal_token,
 )
-from ..sources.a2tools_companion import ensure_a2tools_on_startup
+from ..sources.a2tools_companion import ensure_a2tools_on_startup, stop_a2tools_meter
 from ..sources.a2tools_feed import (
     live_feed_age_ms,
     observations_from_feed,
@@ -1298,6 +1298,11 @@ class MainWindow(QMainWindow):
         if hasattr(self, "_hotkey"):
             self._hotkey.stop()
         self._stop_a2tools_live()
+        # Al salir de Valkyrium, cerrar también el DPS meter
+        try:
+            stop_a2tools_meter()
+        except Exception:
+            pass
         if self._overlay is not None:
             self._overlay.close()
             self._overlay = None
@@ -1317,6 +1322,10 @@ class MainWindow(QMainWindow):
                 self.show_pins_overlay()
             return
         self._stop_a2tools_live()
+        try:
+            stop_a2tools_meter()
+        except Exception:
+            pass
         if self._overlay is not None:
             self._overlay.close()
             self._overlay = None
@@ -1528,6 +1537,11 @@ class MainWindow(QMainWindow):
         self._really_quit = True
         if hasattr(self, "_hotkey"):
             self._hotkey.stop()
+        self._stop_a2tools_live()
+        try:
+            stop_a2tools_meter()
+        except Exception:
+            pass
         from PySide6.QtCore import QProcess
 
         QProcess.startDetached(str(bat), [], str(workdir))

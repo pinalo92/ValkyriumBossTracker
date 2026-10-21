@@ -106,7 +106,8 @@ def apply_preferred_settings() -> bool:
     return True
 
 
-def _stop_a2tools(timeout_s: float = 8.0) -> None:
+def stop_a2tools_meter(timeout_s: float = 8.0) -> None:
+    """Cierra el proceso del DPS meter (A2Tools)."""
     if not is_a2tools_running():
         return
     subprocess.run(
@@ -118,6 +119,10 @@ def _stop_a2tools(timeout_s: float = 8.0) -> None:
     deadline = time.time() + timeout_s
     while time.time() < deadline and is_a2tools_running():
         time.sleep(0.25)
+
+
+# Alias interno
+_stop_a2tools = stop_a2tools_meter
 
 
 def launch_a2tools(exe: Optional[Path] = None) -> bool:

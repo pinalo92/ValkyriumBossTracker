@@ -1,5 +1,9 @@
 # Changelog — Valkyrium Boss Tracker (by Pinalo)
 
+## v0.2.6
+
+- Al cerrar Valkyrium también se cierra el DPS meter (A2Tools)
+
 ## v0.2.5
 
 - El DPS meter (A2Tools) ya **no aparece en la barra de tareas**; solo se ve el overlay del medidor
