@@ -4,7 +4,6 @@
 - Plugin Event Timers desactivado (pins/overlay de A2Tools ocultos)
 - GS + poder de combate junto a los nombres
 - Título ventana → Valkyrium DPS Meter
-- Oculta el engranaje de Ajustes (tapa Win32 sobre la esquina del meter)
 - Lanza A2Tools si está instalado y no corre; reinicia si hay que aplicar prefs
 """
 
@@ -31,13 +30,6 @@ PREFERRED: dict[str, str] = {
     "dpsMeter.pluginsDisabled": '["event-timers"]',
     "dpsMeter.pluginWindows": '{"event-timers":"hidden"}',
 }
-
-# Geometría tapa engranaje (esquina superior derecha del meter).
-GEAR_COVER_W = 34
-GEAR_COVER_H = 30
-GEAR_COVER_MARGIN_R = 6
-GEAR_COVER_MARGIN_T = 4
-GEAR_COVER_COLOR = "#16181d"
 
 
 def _exe_candidates() -> list[Path]:
@@ -159,56 +151,6 @@ def _meter_pids() -> set[int]:
     return pids
 
 
-def find_meter_hwnd() -> int:
-    """HWND de la ventana principal del medidor."""
-    try:
-        import ctypes
-        from ctypes import wintypes
-    except ImportError:
-        return 0
-
-    user32 = ctypes.windll.user32
-    pids = _meter_pids()
-    if not pids:
-        return 0
-
-    found = 0
-    want_titles = {
-        METER_WINDOW_TITLE.lower(),
-        "a2tools dps meter",
-    }
-
-    @ctypes.WINFUNCTYPE(ctypes.c_bool, wintypes.HWND, wintypes.LPARAM)
-    def _cb(hwnd, _lparam):
-        nonlocal found
-        if found:
-            return False
-        if not user32.IsWindowVisible(hwnd):
-            return True
-        pid = wintypes.DWORD()
-        user32.GetWindowThreadProcessId(hwnd, ctypes.byref(pid))
-        if int(pid.value) not in pids:
-            return True
-        n = user32.GetWindowTextLengthW(hwnd)
-        if n <= 0:
-            return True
-        buf = ctypes.create_unicode_buffer(n + 1)
-        user32.GetWindowTextW(hwnd, buf, n + 1)
-        if (buf.value or "").strip().lower() in want_titles:
-            # Preferir ventana con área razonable (no widgets minúsculos)
-            rect = wintypes.RECT()
-            user32.GetWindowRect(hwnd, ctypes.byref(rect))
-            w = int(rect.right - rect.left)
-            h = int(rect.bottom - rect.top)
-            if w >= 120 and h >= 40:
-                found = int(hwnd)
-                return False
-        return True
-
-    user32.EnumWindows(_cb, 0)
-    return found
-
-
 def rename_meter_window(title: str = METER_WINDOW_TITLE) -> int:
     """Cambia el título de la ventana del medidor (barra de título / Alt-Tab)."""
     try:
@@ -266,33 +208,6 @@ def rename_meter_window_retry(
     return total
 
 
-def meter_window_screen_rect() -> Optional[tuple[int, int, int, int]]:
-    """(left, top, right, bottom) pantalla del meter, o None."""
-    try:
-        import ctypes
-        from ctypes import wintypes
-    except ImportError:
-        return None
-    user32 = ctypes.windll.user32
-    meter = find_meter_hwnd()
-    if not meter or not user32.IsWindowVisible(meter) or user32.IsIconic(meter):
-        return None
-    rect = wintypes.RECT()
-    user32.GetWindowRect(meter, ctypes.byref(rect))
-    return int(rect.left), int(rect.top), int(rect.right), int(rect.bottom)
-
-
-def gear_cover_screen_pos() -> Optional[tuple[int, int]]:
-    """Esquina superior-izquierda de la tapa del engranaje, o None."""
-    rect = meter_window_screen_rect()
-    if not rect:
-        return None
-    _l, top, right, _b = rect
-    x = right - GEAR_COVER_W - GEAR_COVER_MARGIN_R
-    y = top + GEAR_COVER_MARGIN_T
-    return x, y
-
-
 def ensure_a2tools_on_startup() -> str:
     """
     Aplica prefs (meter sí, overlay Event Timers no) y asegura que A2Tools corra.
@@ -315,6 +230,4 @@ def ensure_a2tools_on_startup() -> str:
         time.sleep(1.0)
 
     rename_meter_window_retry()
-    gear_ok = bool(find_meter_hwnd())
-    gear_note = "listo" if gear_ok else "meter cargando"
-    return f"{METER_WINDOW_TITLE}: ok ({gear_note}, Event Timers off)"
+    return f"{METER_WINDOW_TITLE}: ok (Event Timers off)"

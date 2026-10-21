@@ -54,7 +54,6 @@ from ..sources.aion2timers_api import (
     resolve_personal_token,
 )
 from ..sources.a2tools_companion import ensure_a2tools_on_startup
-from .gear_cover import SettingsGearCover
 from ..sources.a2tools_feed import (
     live_feed_age_ms,
     observations_from_feed,
@@ -213,14 +212,8 @@ class MainWindow(QMainWindow):
             QTimer.singleShot(400, self._start_a2tools_live)
             QTimer.singleShot(800, lambda: self.on_sync_a2tools(silent=True))
         QTimer.singleShot(200, self._apply_startup_mode)
-        self._gear_cover: SettingsGearCover | None = None
         if getattr(self.settings, "a2tools_launch_on_start", True):
             QTimer.singleShot(900, self._ensure_a2tools_companion)
-            # Seguir la esquina del meter para tapar el engranaje de Ajustes
-            self._gear_cover = SettingsGearCover()
-            self._gear_cover_timer = QTimer(self)
-            self._gear_cover_timer.timeout.connect(self._tick_gear_cover)
-            self._gear_cover_timer.start(250)
         QTimer.singleShot(2_500, lambda: self.check_for_updates(silent=True))
 
     def _card(self) -> QFrame:
@@ -1304,11 +1297,6 @@ class MainWindow(QMainWindow):
         self._really_quit = True
         if hasattr(self, "_hotkey"):
             self._hotkey.stop()
-        if hasattr(self, "_gear_cover_timer"):
-            self._gear_cover_timer.stop()
-        if self._gear_cover is not None:
-            self._gear_cover.close()
-            self._gear_cover = None
         self._stop_a2tools_live()
         if self._overlay is not None:
             self._overlay.close()
@@ -1328,11 +1316,6 @@ class MainWindow(QMainWindow):
             ):
                 self.show_pins_overlay()
             return
-        if hasattr(self, "_gear_cover_timer"):
-            self._gear_cover_timer.stop()
-        if self._gear_cover is not None:
-            self._gear_cover.close()
-            self._gear_cover = None
         self._stop_a2tools_live()
         if self._overlay is not None:
             self._overlay.close()
@@ -1443,10 +1426,6 @@ class MainWindow(QMainWindow):
         self.statusBar().showMessage(f"Marcado muerto: {boss.name_es}", 4000)
         show_toast("Muerto", boss.name_es, ms=1800)
 
-    def _tick_gear_cover(self):
-        if self._gear_cover is not None:
-            self._gear_cover.tick()
-
     def _ensure_a2tools_companion(self):
         """Meter A2Tools on + Event Timers off; abre A2Tools (él se auto-actualiza)."""
         try:
@@ -1457,7 +1436,6 @@ class MainWindow(QMainWindow):
         self.statusBar().showMessage(note, 5_000)
         if "no instalado" not in note.lower():
             show_toast("A2Tools", note, ms=2800)
-        self._tick_gear_cover()
 
     def check_for_updates(self, silent: bool = True):
         import sys
