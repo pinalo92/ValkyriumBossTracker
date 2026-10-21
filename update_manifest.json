@@ -1,7 +1,7 @@
 {
-  "version": "0.2.4",
-  "notes": "Sin tapa del engranaje de Ajustes (más limpio). Resto igual que 0.2.3.",
+  "version": "0.2.5",
+  "notes": "DPS meter sin icono en la barra de tareas (solo overlay). Resto igual que 0.2.4.",
   "url": "https://github.com/pinalo92/ValkyriumBossTracker/releases/download/v0.2.0/ValkyriumBossTracker_v0.2.0.zip",
-  "exe_url": "https://github.com/pinalo92/ValkyriumBossTracker/releases/download/v0.2.4/ValkyriumBossTracker.exe",
+  "exe_url": "https://github.com/pinalo92/ValkyriumBossTracker/releases/download/v0.2.5/ValkyriumBossTracker.exe",
   "setup_url": "https://github.com/pinalo92/ValkyriumBossTracker/releases/download/v0.2.2/ValkyriumSetup_v0.2.2.exe"
 }

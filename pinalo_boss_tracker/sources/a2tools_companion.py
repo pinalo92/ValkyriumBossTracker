@@ -4,6 +4,7 @@
 - Plugin Event Timers desactivado (pins/overlay de A2Tools ocultos)
 - GS + poder de combate junto a los nombres
 - Título ventana → Valkyrium DPS Meter
+- Sin icono en la barra de tareas (solo overlay del meter)
 - Lanza A2Tools si está instalado y no corre; reinicia si hay que aplicar prefs
 """
 
@@ -15,6 +16,12 @@ import subprocess
 import time
 from pathlib import Path
 from typing import Optional
+
+GWL_EXSTYLE = -20
+WS_EX_APPWINDOW = 0x00040000
+WS_EX_TOOLWINDOW = 0x00000080
+SW_HIDE = 0
+SW_SHOWNA = 8  # show without activating
 
 A2_ROAMING = Path.home() / "AppData" / "Roaming" / "com.a2tools.dps-meter"
 A2_SETTINGS = A2_ROAMING / "settings.json"
@@ -151,24 +158,41 @@ def _meter_pids() -> set[int]:
     return pids
 
 
-def rename_meter_window(title: str = METER_WINDOW_TITLE) -> int:
-    """Cambia el título de la ventana del medidor (barra de título / Alt-Tab)."""
+def _window_long_fns():
+    import ctypes
+
+    user32 = ctypes.windll.user32
+    if ctypes.sizeof(ctypes.c_void_p) == 8:
+        get_long = user32.GetWindowLongPtrW
+        set_long = user32.SetWindowLongPtrW
+    else:
+        get_long = user32.GetWindowLongW
+        set_long = user32.SetWindowLongW
+    return user32, get_long, set_long
+
+
+def _is_main_meter_title(title: str) -> bool:
+    low = (title or "").strip().lower()
+    return low in ("a2tools dps meter", METER_WINDOW_TITLE.lower())
+
+
+def _iter_meter_hwnds():
+    """HWND visibles del proceso A2Tools con título de medidor principal."""
     try:
         import ctypes
         from ctypes import wintypes
     except ImportError:
-        return 0
+        return
 
     user32 = ctypes.windll.user32
     pids = _meter_pids()
     if not pids:
-        return 0
+        return
 
-    renamed = 0
+    found: list[int] = []
 
     @ctypes.WINFUNCTYPE(ctypes.c_bool, wintypes.HWND, wintypes.LPARAM)
     def _cb(hwnd, _lparam):
-        nonlocal renamed
         if not user32.IsWindowVisible(hwnd):
             return True
         pid = wintypes.DWORD()
@@ -180,32 +204,86 @@ def rename_meter_window(title: str = METER_WINDOW_TITLE) -> int:
             return True
         buf = ctypes.create_unicode_buffer(n + 1)
         user32.GetWindowTextW(hwnd, buf, n + 1)
-        cur = (buf.value or "").strip()
-        low = cur.lower()
-        if low == "a2tools dps meter":
-            if user32.SetWindowTextW(hwnd, title):
-                renamed += 1
-        elif low == title.lower():
-            renamed += 1
+        if not _is_main_meter_title(buf.value or ""):
+            return True
+        rect = wintypes.RECT()
+        user32.GetWindowRect(hwnd, ctypes.byref(rect))
+        w = int(rect.right - rect.left)
+        h = int(rect.bottom - rect.top)
+        if w >= 120 and h >= 40:
+            found.append(int(hwnd))
         return True
 
     user32.EnumWindows(_cb, 0)
+    yield from found
+
+
+def rename_meter_window(title: str = METER_WINDOW_TITLE) -> int:
+    """Cambia el título de la ventana del medidor."""
+    try:
+        import ctypes
+    except ImportError:
+        return 0
+
+    user32 = ctypes.windll.user32
+    renamed = 0
+    for hwnd in _iter_meter_hwnds():
+        n = user32.GetWindowTextLengthW(hwnd)
+        buf = ctypes.create_unicode_buffer(n + 1)
+        user32.GetWindowTextW(hwnd, buf, n + 1)
+        cur = (buf.value or "").strip()
+        if cur.lower() == "a2tools dps meter":
+            if user32.SetWindowTextW(hwnd, title):
+                renamed += 1
+        elif cur.lower() == title.lower():
+            renamed += 1
     return renamed
 
 
-def rename_meter_window_retry(
+def hide_meter_from_taskbar() -> int:
+    """Quita el icono de la barra de tareas (WS_EX_TOOLWINDOW). El meter sigue visible."""
+    try:
+        import ctypes
+    except ImportError:
+        return 0
+
+    user32, get_long, set_long = _window_long_fns()
+    touched = 0
+    for hwnd in _iter_meter_hwnds():
+        try:
+            ex = int(get_long(hwnd, GWL_EXSTYLE))
+        except (OSError, ValueError, OverflowError):
+            continue
+        new_ex = (ex | WS_EX_TOOLWINDOW) & ~WS_EX_APPWINDOW
+        if new_ex == ex:
+            touched += 1
+            continue
+        try:
+            set_long(hwnd, GWL_EXSTYLE, new_ex)
+        except (OSError, ValueError, OverflowError):
+            continue
+        # Refrescar entrada de la barra de tareas sin robar foco
+        user32.ShowWindow(hwnd, SW_HIDE)
+        user32.ShowWindow(hwnd, SW_SHOWNA)
+        touched += 1
+    return touched
+
+
+def polish_meter_window_retry(
     title: str = METER_WINDOW_TITLE,
-    attempts: int = 8,
+    attempts: int = 10,
     delay_s: float = 0.4,
-) -> int:
-    total = 0
+) -> tuple[int, int]:
+    """Renombra + saca de la barra de tareas (reintenta mientras arranca)."""
+    renamed = hidden = 0
     for i in range(max(1, attempts)):
-        total = rename_meter_window(title)
-        if total > 0:
-            return total
+        renamed = rename_meter_window(title)
+        hidden = hide_meter_from_taskbar()
+        if renamed > 0 and hidden > 0:
+            return renamed, hidden
         if i + 1 < attempts:
             time.sleep(delay_s)
-    return total
+    return renamed, hidden
 
 
 def ensure_a2tools_on_startup() -> str:
@@ -229,5 +307,10 @@ def ensure_a2tools_on_startup() -> str:
             return "A2Tools: no se pudo abrir"
         time.sleep(1.0)
 
-    rename_meter_window_retry()
-    return f"{METER_WINDOW_TITLE}: ok (Event Timers off)"
+    renamed, hidden = polish_meter_window_retry()
+    bits = ["Event Timers off"]
+    if renamed:
+        bits.append("título Valkyrium")
+    if hidden:
+        bits.append("sin barra de tareas")
+    return f"{METER_WINDOW_TITLE}: ok ({', '.join(bits)})"

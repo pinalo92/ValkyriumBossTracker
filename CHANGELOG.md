@@ -1,5 +1,9 @@
 # Changelog — Valkyrium Boss Tracker (by Pinalo)
 
+## v0.2.5
+
+- El DPS meter (A2Tools) ya **no aparece en la barra de tareas**; solo se ve el overlay del medidor
+
 ## v0.2.4
 
 - Quita la tapa fea del engranaje de Ajustes del DPS meter (se deja el botón nativo de A2Tools)
