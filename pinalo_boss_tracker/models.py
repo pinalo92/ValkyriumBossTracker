@@ -49,6 +49,8 @@ class BossDef:
     z: Optional[float] = None
     loot_notes: str = ""
     source_note: str = "community-observed"
+    # ID numérico del feed A2Tools (field / abyss). Vacío = solo match por nombre.
+    a2tools_field_id: str = ""
 
 
 @dataclass
@@ -100,9 +102,13 @@ class AppSettings:
     # Feed CDN A2Tools Event Timers (vivos/muertos del servidor, sin clave)
     a2tools_server_id: int = 0  # 0 = auto (prefs A2Tools / nombre)
     a2tools_auto_sync: bool = True
+    # Al abrir Valkyrium: lanzar/ajustar A2Tools (meter on, Event Timers off)
+    a2tools_launch_on_start: bool = True
     # Arranque: solo overlay en pantalla + icono en bandeja del sistema
     start_in_tray: bool = True
     overlay_on_start: bool = True
+    # Si hay update en el manifiesto, instalar al arrancar sin preguntar
+    auto_update_on_start: bool = True
     # Overlay visual (1.0 = 100%)
     overlay_scale: float = 1.0
     overlay_opacity: float = 1.0

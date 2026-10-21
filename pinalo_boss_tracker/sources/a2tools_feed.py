@@ -160,6 +160,14 @@ def _parse_hp(raw) -> Optional[int]:
     return max(0, min(100, n))
 
 
+def _timer_hp(timer: dict) -> Optional[int]:
+    """A2Tools a veces manda hp / hpPercent / health."""
+    for key in ("hp", "hpPercent", "hp_percent", "health", "healthPercent"):
+        if key in timer and timer.get(key) is not None and timer.get(key) != "":
+            return _parse_hp(timer.get(key))
+    return None
+
+
 def fetch_boss_timers(server_id: int, timeout: float = 20.0) -> dict:
     url = CDN_FEED.format(server=int(server_id))
     req = urllib.request.Request(
@@ -178,11 +186,57 @@ def fetch_boss_timers(server_id: int, timeout: float = 20.0) -> dict:
 
 
 def _local_index() -> dict[str, str]:
+    """Nombre normalizado → boss_id (fallback; preferir a2tools_field_id)."""
     idx: dict[str, str] = {}
     for bid, b in bosses().items():
         idx[_normalize(b.name)] = bid
         idx[_normalize(b.name_es)] = bid
     return idx
+
+
+def _field_id_index() -> dict[str, str]:
+    return {
+        str(b.a2tools_field_id): bid
+        for bid, b in bosses().items()
+        if (b.a2tools_field_id or "").strip()
+    }
+
+
+def _resolve_feed_boss(
+    fid: str,
+    meta: dict,
+    faction: str,
+    catalog: dict,
+    by_field: dict[str, str],
+    by_name: dict[str, str],
+) -> Optional[str]:
+    """Resuelve ID de feed → boss local. Prioridad: field_id, luego nombre+facción."""
+    hit = by_field.get(str(fid))
+    if hit and hit in catalog:
+        return hit
+    en = meta.get("en") or ""
+    es = meta.get("es") or ""
+    side = (meta.get("side") or "").lower()
+    candidates: list[str] = []
+    for key in (_normalize(en), _normalize(es)):
+        if not key:
+            continue
+        # Puede haber varios bosses con el mismo nombre (Elyos/Asmo)
+        for bid, b in catalog.items():
+            if _normalize(b.name) == key or _normalize(b.name_es) == key:
+                candidates.append(bid)
+    if not candidates:
+        # índice simple (último gana) como último recurso
+        return by_name.get(_normalize(en)) or by_name.get(_normalize(es))
+    # Preferir facción del feed / del usuario
+    want = side if side in ("elyos", "asmodian") else (faction or "").lower()
+    for bid in candidates:
+        b = catalog[bid]
+        if want and b.faction == want:
+            return bid
+        if b.faction == "both":
+            return bid
+    return candidates[0]
 
 
 def observations_from_feed(
@@ -191,7 +245,8 @@ def observations_from_feed(
     source: str = "a2tools-cdn",
 ) -> tuple[list[BossObservation], str]:
     field_map = load_field_map()
-    idx = _local_index()
+    by_name = _local_index()
+    by_field = _field_id_index()
     catalog = bosses()
     remote = feed.get("bosses") or {}
     out: list[BossObservation] = []
@@ -205,9 +260,9 @@ def observations_from_feed(
             continue
         if faction == "asmodian" and side == "elyos":
             continue
-        en = meta.get("en") or ""
-        es = meta.get("es") or ""
-        local_id = idx.get(_normalize(en)) or idx.get(_normalize(es))
+        local_id = _resolve_feed_boss(
+            str(fid), meta, faction, catalog, by_field, by_name
+        )
         if not local_id or local_id not in catalog:
             skipped += 1
             continue
@@ -223,7 +278,7 @@ def observations_from_feed(
             obs.reliability = Reliability.CONFIRMED_ALIVE
             # Feed live = confirmación fresca (no marcar STALE por upSince antiguo)
             obs.updated_at = utcnow()
-            obs.hp = _parse_hp(timer.get("hp"))
+            obs.hp = _timer_hp(timer if isinstance(timer, dict) else {})
             if obs.hp is not None:
                 with_hp += 1
             hp_note = f", HP {obs.hp}%" if obs.hp is not None else ""
@@ -236,7 +291,7 @@ def observations_from_feed(
                 age = f" up@{up_since.astimezone().strftime('%H:%M:%S')}"
             obs.note = (
                 f"Vivo en {label} ({src}{hp_note}{age}). "
-                "Comunidad/meters, no lectura directa del cliente."
+                "HP% solo si un meter lo reporta en combate."
             )
             alive += 1
             out.append(obs)

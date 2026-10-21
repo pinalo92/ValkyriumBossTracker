@@ -1,1 +1,7 @@
-{"notes":"Lista de servidores + instalador Setup. Para amigos: preferir ValkyriumSetup_v0.2.2.exe","url":"https://github.com/pinalo92/ValkyriumBossTracker/releases/download/v0.2.0/ValkyriumBossTracker_v0.2.0.zip","version":"0.2.2","exe_url":"https://github.com/pinalo92/ValkyriumBossTracker/releases/download/v0.2.2/ValkyriumBossTracker.exe","setup_url":"https://github.com/pinalo92/ValkyriumBossTracker/releases/download/v0.2.2/ValkyriumSetup_v0.2.2.exe"}
+{
+  "version": "0.2.3",
+  "notes": "Bosses HP% + Altgard asmo; auto A2Tools (meter on / Event Timers off); título Valkyrium DPS Meter",
+  "url": "https://github.com/pinalo92/ValkyriumBossTracker/releases/download/v0.2.0/ValkyriumBossTracker_v0.2.0.zip",
+  "exe_url": "https://github.com/pinalo92/ValkyriumBossTracker/releases/download/v0.2.3/ValkyriumBossTracker.exe",
+  "setup_url": "https://github.com/pinalo92/ValkyriumBossTracker/releases/download/v0.2.2/ValkyriumSetup_v0.2.2.exe"
+}

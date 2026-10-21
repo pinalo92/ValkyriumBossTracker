@@ -1,5 +1,12 @@
 # Changelog — Valkyrium Boss Tracker (by Pinalo)
 
+## v0.2.3
+
+- Catálogo: `a2tools_field_id` en todos los field bosses + 24 bosses asmodianos Altgard (HP% correcto, sin mezclar Elyos/Asmo)
+- Abismo: Argo con field `2001`; Kaira solo horario (sin HP en feed)
+- Al abrir Valkyrium: auto-update silencioso + lanza/ajusta A2Tools (meter on, Event Timers off)
+- Título del meter → **Valkyrium DPS Meter**; tapa el engranaje de Ajustes de A2Tools
+
 ## v0.2.2
 
 - Lista desplegable de servidores EU / NA East / NA West (Kaisinel, Lumiel, …) con serverId correcto

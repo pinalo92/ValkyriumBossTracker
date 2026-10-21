@@ -647,7 +647,8 @@
       "nearest_tp_id": "tp_coastal_camp",
       "x": -1200.0,
       "z": -700.0,
-      "loot_notes": "Chest / set / refining stones"
+      "loot_notes": "Chest / set / refining stones",
+      "a2tools_field_id": "101003"
     },
     {
       "id": "neikel_east",
@@ -662,7 +663,8 @@
       "nearest_tp_id": "tp_cantas_mushroom",
       "x": -873.0,
       "z": -857.0,
-      "loot_notes": "Chest / set / refining stones"
+      "loot_notes": "Chest / set / refining stones",
+      "a2tools_field_id": "101001"
     },
     {
       "id": "rotten_kutar",
@@ -677,7 +679,8 @@
       "nearest_tp_id": "tp_marsh_outpost",
       "x": -142.0,
       "z": -918.0,
-      "loot_notes": "Chest / set / refining stones"
+      "loot_notes": "Chest / set / refining stones",
+      "a2tools_field_id": "101002"
     },
     {
       "id": "blooming_korin",
@@ -692,7 +695,8 @@
       "nearest_tp_id": "tp_illusion_cavaliers",
       "x": -568.0,
       "z": -37.0,
-      "loot_notes": "Chest / set / refining stones"
+      "loot_notes": "Chest / set / refining stones",
+      "a2tools_field_id": "101007"
     },
     {
       "id": "teegant",
@@ -707,7 +711,8 @@
       "nearest_tp_id": "tp_verteron_fortress",
       "x": -35.0,
       "z": -3.0,
-      "loot_notes": "Chest / set / refining stones"
+      "loot_notes": "Chest / set / refining stones",
+      "a2tools_field_id": "101006"
     },
     {
       "id": "kusan",
@@ -722,7 +727,8 @@
       "nearest_tp_id": "tp_collapsed_pillar",
       "x": -50.0,
       "z": 20.0,
-      "loot_notes": "Chest / set / refining stones"
+      "loot_notes": "Chest / set / refining stones",
+      "a2tools_field_id": "101004"
     },
     {
       "id": "garshim",
@@ -737,7 +743,8 @@
       "nearest_tp_id": "tp_illusion_oratory",
       "x": -226.0,
       "z": -4.0,
-      "loot_notes": "Chest / set / refining stones"
+      "loot_notes": "Chest / set / refining stones",
+      "a2tools_field_id": "101005"
     },
     {
       "id": "taulo",
@@ -752,7 +759,8 @@
       "nearest_tp_id": "tp_abandoned_breeze",
       "x": -300.0,
       "z": 1000.0,
-      "loot_notes": "Chest / set / refining stones"
+      "loot_notes": "Chest / set / refining stones",
+      "a2tools_field_id": "101019"
     },
     {
       "id": "aulla",
@@ -767,7 +775,8 @@
       "nearest_tp_id": "tp_abandoned_breeze",
       "x": -437.0,
       "z": 1286.0,
-      "loot_notes": "Chest / set / refining stones"
+      "loot_notes": "Chest / set / refining stones",
+      "a2tools_field_id": "101017"
     },
     {
       "id": "aullamu",
@@ -782,7 +791,8 @@
       "nearest_tp_id": "tp_aullaeu_valley",
       "x": -437.0,
       "z": 1286.0,
-      "loot_notes": "Balaur Essence chance / chest / set"
+      "loot_notes": "Balaur Essence chance / chest / set",
+      "a2tools_field_id": "101018"
     },
     {
       "id": "pnyn",
@@ -797,7 +807,8 @@
       "nearest_tp_id": "tp_southern_shugo",
       "x": 180.0,
       "z": 950.0,
-      "loot_notes": "Chest / set / leather"
+      "loot_notes": "Chest / set / leather",
+      "a2tools_field_id": "101009"
     },
     {
       "id": "saursus",
@@ -812,7 +823,8 @@
       "nearest_tp_id": "tp_astin_base",
       "x": 250.0,
       "z": 850.0,
-      "loot_notes": "Chest / set / leather"
+      "loot_notes": "Chest / set / leather",
+      "a2tools_field_id": "101008"
     },
     {
       "id": "moshav",
@@ -827,7 +839,8 @@
       "nearest_tp_id": "tp_drana_hub",
       "x": 1400.0,
       "z": -900.0,
-      "loot_notes": "Chest / set / refining stones"
+      "loot_notes": "Chest / set / refining stones",
+      "a2tools_field_id": "101015"
     },
     {
       "id": "knash",
@@ -842,7 +855,8 @@
       "nearest_tp_id": "tp_drana_hub",
       "x": 1450.0,
       "z": -920.0,
-      "loot_notes": "Balaur Essence chance / chest"
+      "loot_notes": "Balaur Essence chance / chest",
+      "a2tools_field_id": "101016"
     },
     {
       "id": "layla",
@@ -857,7 +871,8 @@
       "nearest_tp_id": "tp_zumion_path",
       "x": 374.0,
       "z": 568.0,
-      "loot_notes": "Chest / set / refining stones"
+      "loot_notes": "Chest / set / refining stones",
+      "a2tools_field_id": "101010"
     },
     {
       "id": "demiross",
@@ -872,7 +887,8 @@
       "nearest_tp_id": "tp_ancient_zumion",
       "x": 1328.0,
       "z": 598.0,
-      "loot_notes": "Balaur Essence chance / chest"
+      "loot_notes": "Balaur Essence chance / chest",
+      "a2tools_field_id": "101013"
     },
     {
       "id": "ansas",
@@ -887,7 +903,8 @@
       "nearest_tp_id": "tp_altamia_ruins",
       "x": 1300.0,
       "z": 620.0,
-      "loot_notes": "Balaur Essence chance / chest"
+      "loot_notes": "Balaur Essence chance / chest",
+      "a2tools_field_id": "101014"
     },
     {
       "id": "lawa",
@@ -902,7 +919,8 @@
       "nearest_tp_id": "tp_ancient_zumion",
       "x": 974.0,
       "z": 769.0,
-      "loot_notes": "Balaur Essence chance / chest"
+      "loot_notes": "Balaur Essence chance / chest",
+      "a2tools_field_id": "101011"
     },
     {
       "id": "kasia",
@@ -917,7 +935,8 @@
       "nearest_tp_id": "tp_garden_west",
       "x": 1216.0,
       "z": 1851.0,
-      "loot_notes": "Balaur Essence chance / chest"
+      "loot_notes": "Balaur Essence chance / chest",
+      "a2tools_field_id": "101012"
     },
     {
       "id": "setram",
@@ -932,7 +951,8 @@
       "nearest_tp_id": "tp_nahid",
       "x": 1553.0,
       "z": -1185.0,
-      "loot_notes": "Balaur Essence chance / chest"
+      "loot_notes": "Balaur Essence chance / chest",
+      "a2tools_field_id": "101020"
     },
     {
       "id": "dartan",
@@ -947,7 +967,8 @@
       "nearest_tp_id": "tp_pilgrim_rest",
       "x": 357.0,
       "z": 1542.0,
-      "loot_notes": "Artisan refining stones / chest"
+      "loot_notes": "Artisan refining stones / chest",
+      "a2tools_field_id": "101022"
     },
     {
       "id": "kashapa",
@@ -962,7 +983,8 @@
       "nearest_tp_id": "tp_altamia_ruins",
       "x": 1349.0,
       "z": 1265.0,
-      "loot_notes": "Artisan refining stones / chest"
+      "loot_notes": "Artisan refining stones / chest",
+      "a2tools_field_id": "101023"
     },
     {
       "id": "lagta",
@@ -977,7 +999,8 @@
       "nearest_tp_id": "tp_laborer_rest",
       "x": 1500.0,
       "z": -1000.0,
-      "loot_notes": "Artisan refining stones / chest"
+      "loot_notes": "Artisan refining stones / chest",
+      "a2tools_field_id": "101024"
     },
     {
       "id": "gartua",
@@ -992,7 +1015,8 @@
       "nearest_tp_id": "tp_aullaeu_sky",
       "x": -1288.0,
       "z": 706.0,
-      "loot_notes": "Artisan refining stones / chest"
+      "loot_notes": "Artisan refining stones / chest",
+      "a2tools_field_id": "101021"
     },
     {
       "id": "argo_spirit_king",
@@ -1008,7 +1032,8 @@
       "x": 0.0,
       "z": 0.0,
       "loot_notes": "Abyss / Reshanta loot",
-      "source_note": "A2Tools field:2001 — HP live via meters when up"
+      "source_note": "A2Tools field:2001 — HP live via meters when up",
+      "a2tools_field_id": "2001"
     },
     {
       "id": "kaira_watcher",
@@ -1024,7 +1049,416 @@
       "x": 0.0,
       "z": 0.0,
       "loot_notes": "Refining stones / Abyss loot",
-      "source_note": "Every 3h from 01:00 server time (community-observed region clocks)"
+      "source_note": "Horario community (cada 3h). No hay HP% en A2Tools field timers.",
+      "a2tools_field_id": ""
+    },
+    {
+      "id": "melted_danar",
+      "name": "Melted Danar",
+      "name_es": "Danar fundido",
+      "kind": "field",
+      "map_id": "altgard",
+      "zone": "Altgard",
+      "faction": "asmodian",
+      "level": 45,
+      "respawn_minutes": 60,
+      "nearest_tp_id": "",
+      "x": 0.0,
+      "z": 0.0,
+      "loot_notes": "Chest / set / refining stones",
+      "source_note": "A2Tools field:111001",
+      "a2tools_field_id": "111001"
+    },
+    {
+      "id": "black_warrior_aed",
+      "name": "Black Warrior Aed",
+      "name_es": "Guerrero negro Aed",
+      "kind": "field",
+      "map_id": "altgard",
+      "zone": "Altgard",
+      "faction": "asmodian",
+      "level": 45,
+      "respawn_minutes": 60,
+      "nearest_tp_id": "",
+      "x": 0.0,
+      "z": 0.0,
+      "loot_notes": "Chest / set / refining stones",
+      "source_note": "A2Tools field:111002",
+      "a2tools_field_id": "111002"
+    },
+    {
+      "id": "faithful_rajit",
+      "name": "Faithful Rajit",
+      "name_es": "Rajit leal",
+      "kind": "field",
+      "map_id": "altgard",
+      "zone": "Altgard",
+      "faction": "asmodian",
+      "level": 45,
+      "respawn_minutes": 60,
+      "nearest_tp_id": "",
+      "x": 0.0,
+      "z": 0.0,
+      "loot_notes": "Chest / set / refining stones",
+      "source_note": "A2Tools field:111003",
+      "a2tools_field_id": "111003"
+    },
+    {
+      "id": "berserker_vargor",
+      "name": "Berserker Vargor",
+      "name_es": "Berserker Vargor",
+      "kind": "field",
+      "map_id": "altgard",
+      "zone": "Altgard",
+      "faction": "asmodian",
+      "level": 45,
+      "respawn_minutes": 60,
+      "nearest_tp_id": "",
+      "x": 0.0,
+      "z": 0.0,
+      "loot_notes": "Chest / set / refining stones",
+      "source_note": "A2Tools field:111004",
+      "a2tools_field_id": "111004"
+    },
+    {
+      "id": "predator_garsan",
+      "name": "Predator Garsan",
+      "name_es": "Garsan depredador",
+      "kind": "field",
+      "map_id": "altgard",
+      "zone": "Altgard",
+      "faction": "asmodian",
+      "level": 45,
+      "respawn_minutes": 60,
+      "nearest_tp_id": "",
+      "x": 0.0,
+      "z": 0.0,
+      "loot_notes": "Chest / set / refining stones",
+      "source_note": "A2Tools field:111005",
+      "a2tools_field_id": "111005"
+    },
+    {
+      "id": "blood_warrior_lannar",
+      "name": "Blood Warrior Lannar",
+      "name_es": "Guerrero sangriento Lannar",
+      "kind": "field",
+      "map_id": "altgard",
+      "zone": "Altgard",
+      "faction": "asmodian",
+      "level": 45,
+      "respawn_minutes": 60,
+      "nearest_tp_id": "",
+      "x": 0.0,
+      "z": 0.0,
+      "loot_notes": "Chest / set / refining stones",
+      "source_note": "A2Tools field:111006",
+      "a2tools_field_id": "111006"
+    },
+    {
+      "id": "deceiver_trid",
+      "name": "Deceiver Trid",
+      "name_es": "Impostora Trid",
+      "kind": "field",
+      "map_id": "altgard",
+      "zone": "Altgard",
+      "faction": "asmodian",
+      "level": 45,
+      "respawn_minutes": 60,
+      "nearest_tp_id": "",
+      "x": 0.0,
+      "z": 0.0,
+      "loot_notes": "Chest / set / refining stones",
+      "source_note": "A2Tools field:111007",
+      "a2tools_field_id": "111007"
+    },
+    {
+      "id": "blue_wave_kelpina",
+      "name": "Blue Wave Kelpina",
+      "name_es": "Kelpina de onda azul",
+      "kind": "field",
+      "map_id": "altgard",
+      "zone": "Altgard",
+      "faction": "asmodian",
+      "level": 45,
+      "respawn_minutes": 60,
+      "nearest_tp_id": "",
+      "x": 0.0,
+      "z": 0.0,
+      "loot_notes": "Chest / set / refining stones",
+      "source_note": "A2Tools field:111008",
+      "a2tools_field_id": "111008"
+    },
+    {
+      "id": "high_overseer_nutah",
+      "name": "High Overseer Nutah",
+      "name_es": "Nutah supervisor jefe",
+      "kind": "field",
+      "map_id": "altgard",
+      "zone": "Altgard",
+      "faction": "asmodian",
+      "level": 45,
+      "respawn_minutes": 60,
+      "nearest_tp_id": "",
+      "x": 0.0,
+      "z": 0.0,
+      "loot_notes": "Chest / set / refining stones",
+      "source_note": "A2Tools field:111009",
+      "a2tools_field_id": "111009"
+    },
+    {
+      "id": "advisor_resana",
+      "name": "Advisor Resana",
+      "name_es": "Consejero Resana",
+      "kind": "field",
+      "map_id": "altgard",
+      "zone": "Altgard",
+      "faction": "asmodian",
+      "level": 45,
+      "respawn_minutes": 60,
+      "nearest_tp_id": "",
+      "x": 0.0,
+      "z": 0.0,
+      "loot_notes": "Chest / set / refining stones",
+      "source_note": "A2Tools field:111010",
+      "a2tools_field_id": "111010"
+    },
+    {
+      "id": "special_operations_leader_linx",
+      "name": "Special Operations Leader Linx",
+      "name_es": "Líder de operaciones especiales Linx",
+      "kind": "field",
+      "map_id": "altgard",
+      "zone": "Altgard",
+      "faction": "asmodian",
+      "level": 45,
+      "respawn_minutes": 60,
+      "nearest_tp_id": "",
+      "x": 0.0,
+      "z": 0.0,
+      "loot_notes": "Chest / set / refining stones",
+      "source_note": "A2Tools field:111011",
+      "a2tools_field_id": "111011"
+    },
+    {
+      "id": "desecrator_newbold",
+      "name": "Desecrator Newbold",
+      "name_es": "Profanador Newbold",
+      "kind": "field",
+      "map_id": "altgard",
+      "zone": "Altgard",
+      "faction": "asmodian",
+      "level": 45,
+      "respawn_minutes": 60,
+      "nearest_tp_id": "",
+      "x": 0.0,
+      "z": 0.0,
+      "loot_notes": "Chest / set / refining stones",
+      "source_note": "A2Tools field:111012",
+      "a2tools_field_id": "111012"
+    },
+    {
+      "id": "specter_archon_axios",
+      "name": "Specter Archon Axios",
+      "name_es": "Akan de ánimas perdidas Axios",
+      "kind": "field",
+      "map_id": "altgard",
+      "zone": "Altgard",
+      "faction": "asmodian",
+      "level": 45,
+      "respawn_minutes": 60,
+      "nearest_tp_id": "",
+      "x": 0.0,
+      "z": 0.0,
+      "loot_notes": "Chest / set / refining stones",
+      "source_note": "A2Tools field:111013",
+      "a2tools_field_id": "111013"
+    },
+    {
+      "id": "addicted_hardirun",
+      "name": "Addicted Hardirun",
+      "name_es": "Hardirun envenenado",
+      "kind": "field",
+      "map_id": "altgard",
+      "zone": "Altgard",
+      "faction": "asmodian",
+      "level": 45,
+      "respawn_minutes": 60,
+      "nearest_tp_id": "",
+      "x": 0.0,
+      "z": 0.0,
+      "loot_notes": "Chest / set / refining stones",
+      "source_note": "A2Tools field:111014",
+      "a2tools_field_id": "111014"
+    },
+    {
+      "id": "executioner_barthien",
+      "name": "Executioner Barthien",
+      "name_es": "Barthien verdugo",
+      "kind": "field",
+      "map_id": "altgard",
+      "zone": "Altgard",
+      "faction": "asmodian",
+      "level": 45,
+      "respawn_minutes": 60,
+      "nearest_tp_id": "",
+      "x": 0.0,
+      "z": 0.0,
+      "loot_notes": "Chest / set / refining stones",
+      "source_note": "A2Tools field:111015",
+      "a2tools_field_id": "111015"
+    },
+    {
+      "id": "drakan_battalion_weapon_guruta",
+      "name": "Drakan Battalion Weapon Guruta",
+      "name_es": "Drakan artillería de destacamento Guruta",
+      "kind": "field",
+      "map_id": "altgard",
+      "zone": "Altgard",
+      "faction": "asmodian",
+      "level": 45,
+      "respawn_minutes": 60,
+      "nearest_tp_id": "",
+      "x": 0.0,
+      "z": 0.0,
+      "loot_notes": "Chest / set / refining stones",
+      "source_note": "A2Tools field:111016",
+      "a2tools_field_id": "111016"
+    },
+    {
+      "id": "veteran_shujakan",
+      "name": "Veteran Shujakan",
+      "name_es": "Veterano Shujakan",
+      "kind": "field",
+      "map_id": "altgard",
+      "zone": "Altgard",
+      "faction": "asmodian",
+      "level": 45,
+      "respawn_minutes": 60,
+      "nearest_tp_id": "",
+      "x": 0.0,
+      "z": 0.0,
+      "loot_notes": "Chest / set / refining stones",
+      "source_note": "A2Tools field:111017",
+      "a2tools_field_id": "111017"
+    },
+    {
+      "id": "visionary_karuka",
+      "name": "Visionary Karuka",
+      "name_es": "Karuka visionario",
+      "kind": "field",
+      "map_id": "altgard",
+      "zone": "Altgard",
+      "faction": "asmodian",
+      "level": 45,
+      "respawn_minutes": 60,
+      "nearest_tp_id": "",
+      "x": 0.0,
+      "z": 0.0,
+      "loot_notes": "Chest / set / refining stones",
+      "source_note": "A2Tools field:111018",
+      "a2tools_field_id": "111018"
+    },
+    {
+      "id": "dark_shadow_vishwada",
+      "name": "Dark Shadow Vishwada",
+      "name_es": "Vishwada de oscuridad",
+      "kind": "field",
+      "map_id": "altgard",
+      "zone": "Altgard",
+      "faction": "asmodian",
+      "level": 45,
+      "respawn_minutes": 60,
+      "nearest_tp_id": "",
+      "x": 0.0,
+      "z": 0.0,
+      "loot_notes": "Chest / set / refining stones",
+      "source_note": "A2Tools field:111019",
+      "a2tools_field_id": "111019"
+    },
+    {
+      "id": "sharp_shylak",
+      "name": "Sharp Shylak",
+      "name_es": "Shylak agudo",
+      "kind": "field",
+      "map_id": "altgard",
+      "zone": "Altgard",
+      "faction": "asmodian",
+      "level": 45,
+      "respawn_minutes": 60,
+      "nearest_tp_id": "",
+      "x": 0.0,
+      "z": 0.0,
+      "loot_notes": "Chest / set / refining stones",
+      "source_note": "A2Tools field:111020",
+      "a2tools_field_id": "111020"
+    },
+    {
+      "id": "immortal_gartua",
+      "name": "Immortal Gartua",
+      "name_es": "Gartua inmortal",
+      "kind": "field",
+      "map_id": "altgard",
+      "zone": "Altgard",
+      "faction": "asmodian",
+      "level": 51,
+      "respawn_minutes": 720,
+      "nearest_tp_id": "",
+      "x": 0.0,
+      "z": 0.0,
+      "loot_notes": "Chest / set / refining stones",
+      "source_note": "A2Tools field:111021",
+      "a2tools_field_id": "111021"
+    },
+    {
+      "id": "high_commander_lagta",
+      "name": "High Commander Lagta",
+      "name_es": "Comandante de Lagta",
+      "kind": "field",
+      "map_id": "altgard",
+      "zone": "Altgard",
+      "faction": "asmodian",
+      "level": 48,
+      "respawn_minutes": 720,
+      "nearest_tp_id": "",
+      "x": 0.0,
+      "z": 0.0,
+      "loot_notes": "Chest / set / refining stones",
+      "source_note": "A2Tools field:111022",
+      "a2tools_field_id": "111022"
+    },
+    {
+      "id": "soul_ruler_kashapa",
+      "name": "Soul Ruler Kashapa",
+      "name_es": "Gobernante de almas Kashapa",
+      "kind": "field",
+      "map_id": "altgard",
+      "zone": "Altgard",
+      "faction": "asmodian",
+      "level": 48,
+      "respawn_minutes": 360,
+      "nearest_tp_id": "",
+      "x": 0.0,
+      "z": 0.0,
+      "loot_notes": "Chest / set / refining stones",
+      "source_note": "A2Tools field:111023",
+      "a2tools_field_id": "111023"
+    },
+    {
+      "id": "silent_dartan",
+      "name": "Silent Dartan",
+      "name_es": "Dartan del silencio",
+      "kind": "field",
+      "map_id": "altgard",
+      "zone": "Altgard",
+      "faction": "asmodian",
+      "level": 48,
+      "respawn_minutes": 360,
+      "nearest_tp_id": "",
+      "x": 0.0,
+      "z": 0.0,
+      "loot_notes": "Chest / set / refining stones",
+      "source_note": "A2Tools field:111024",
+      "a2tools_field_id": "111024"
     }
   ],
   "schedules": {

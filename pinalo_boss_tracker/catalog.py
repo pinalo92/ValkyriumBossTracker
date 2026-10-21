@@ -72,6 +72,7 @@ def bosses() -> dict[str, BossDef]:
             z=b.get("z"),
             loot_notes=b.get("loot_notes", ""),
             source_note=b.get("source_note", "community-observed"),
+            a2tools_field_id=str(b.get("a2tools_field_id") or ""),
         )
         out[bd.id] = bd
     return out
