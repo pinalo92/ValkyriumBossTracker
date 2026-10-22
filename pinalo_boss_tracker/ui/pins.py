@@ -91,12 +91,23 @@ def field_id_to_local(field_id: str) -> Optional[str]:
     return None
 
 
+def is_live_combat(obs: BossObservation, now=None) -> bool:
+    """True si el feed manda HP%: alguien con meter está peleando ahí."""
+    if obs.hp is None:
+        return False
+    return format_alive_dead(obs, now) == "VIVO"
+
+
 def select_pin_bosses(
     settings: AppSettings,
     observations: dict[str, BossObservation],
     limit: int = 12,
 ) -> list[tuple[BossDef, BossObservation]]:
-    """Solo bosses vivos o que faltan ≤ alert_lead_minutes (5) para salir."""
+    """Solo bosses vivos o que faltan ≤ alert_lead_minutes (5) para salir.
+
+    Orden: en combate (HP live) → favoritos → pronto a salir → ruta.
+    Entre combates, menor HP primero (pelea más avanzada / más caliente).
+    """
     catalog = bosses()
     now = utcnow()
     lead = float(settings.alert_lead_minutes or 5)
@@ -134,7 +145,8 @@ def select_pin_bosses(
     route_pos = {s.boss_id: i for i, s in enumerate(route)}
 
     favs = set(settings.favorite_boss_ids or [])
-    rows: list[tuple[BossDef, BossObservation, float, int, int]] = []
+    # combat_rank, hp_sort, fav_rank, ready_mins, route_pos
+    rows: list[tuple[BossDef, BossObservation, int, float, int, float, int]] = []
     for bid, boss in catalog.items():
         if not faction_ok(boss):
             continue
@@ -142,14 +154,28 @@ def select_pin_bosses(
             continue
         obs = refresh_observation(boss, observations.get(bid), settings, now)
         is_fav = bid in favs
-        if not is_fav and not soon_enough(obs):
+        in_combat = is_live_combat(obs, now)
+        if not is_fav and not soon_enough(obs) and not in_combat:
             continue
         rm = ready_mins(obs)
         pos = route_pos.get(bid, 1000)
-        # favoritos primero (0), luego por tiempo
-        rows.append((boss, obs, 0 if is_fav else 1, rm, pos))
+        try:
+            hp_sort = float(obs.hp) if in_combat else 999.0
+        except (TypeError, ValueError):
+            hp_sort = 999.0
+        rows.append(
+            (
+                boss,
+                obs,
+                0 if in_combat else 1,
+                hp_sort,
+                0 if is_fav else 1,
+                rm,
+                pos,
+            )
+        )
 
-    rows.sort(key=lambda t: (t[2], t[3], t[4], t[0].name_es))
+    rows.sort(key=lambda t: (t[2], t[3], t[4], t[5], t[6], t[0].name_es))
     return [(b, o) for b, o, *_ in rows[:limit]]
 
 
@@ -393,8 +419,13 @@ class BossPinWidget(QWidget):
         extra = f"\n{self._tp_name}" if self._tp_name else ""
         shown = self._display_hp if self._display_hp >= 0 else self._obs.hp
         hp = f"\nHP {int(round(float(shown)))}%" if shown is not None and float(shown) >= 0 else ""
+        combat = ""
+        if is_live_combat(self._obs) or (
+            self._display_hp >= 0 and format_alive_dead(self._obs) == "VIVO"
+        ):
+            combat = "\nEn combate (HP live) — gente con meter aquí"
         self.setToolTip(
-            f"{self._boss.name_es}\n{self._tp}{extra}{hp}\n"
+            f"{self._boss.name_es}\n{self._tp}{extra}{hp}{combat}\n"
             "Clic: copiar #TP · Clic der.: marcar muerto\n"
             "Rueda: opacidad · Ctrl+rueda: escala"
         )
@@ -488,6 +519,23 @@ class BossPinWidget(QWidget):
         ring = _hp_color(hp_f) if has_hp else _ring_color(self._obs, self._boss)
         # Coordenadas lógicas (80×148); el painter ya aplica scale
         cx, cy, r = 40.0, 28.0, 21.0  # badge 42px
+
+        # Resplandor si hay HP live (= pelea activa / “a dónde va la gente”)
+        if has_hp:
+            glow = QColor(_hp_color(hp_f))
+            for expand, alpha in ((11.0, 40), (7.5, 70), (5.0, 110)):
+                c = QColor(glow)
+                c.setAlpha(alpha)
+                p.setPen(Qt.PenStyle.NoPen)
+                p.setBrush(c)
+                p.drawEllipse(
+                    QRectF(
+                        cx - r - expand,
+                        cy - r - expand,
+                        (r + expand) * 2,
+                        (r + expand) * 2,
+                    )
+                )
 
         # Sombra bajo el badge (como box-shadow A2Tools)
         p.setPen(Qt.PenStyle.NoPen)
@@ -688,7 +736,8 @@ class PinStrip(QWidget):
         s = self._scale
         self._layout.setContentsMargins(
             max(2, int(round(4 * s))),
-            max(4, int(round(8 * s))),
+            # Extra top: hueco para el resplandor de bosses en combate
+            max(6, int(round(14 * s))),
             max(2, int(round(4 * s))),
             max(1, int(round(2 * s))),
         )

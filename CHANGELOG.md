@@ -1,5 +1,14 @@
 # Changelog — Valkyrium Boss Tracker (by Pinalo)
 
+## v0.2.8
+
+- Al abrir Valkyrium se abre **Questlog** (DPS / overlays)
+- Si Questlog **no está instalado**, descarga el instalador oficial (~111 MB) desde cdn.questlog.gg y lo lanza (UAC)
+- Si Questlog tiene una actualización pendiente, se reinicia para instalarla
+- Al cerrar Valkyrium también se cierra Questlog
+- Ya no se lanza A2Tools como companion (el feed CDN/WSS de bosses sigue igual)
+- Overlay: bosses **en combate (HP live)** primero y con resplandor (“a dónde va la gente”)
+
 ## v0.2.7
 
 - Quitar el DPS meter de la barra de tareas de verdad (ITaskbarList + reaplicar cada 2s en Win11)

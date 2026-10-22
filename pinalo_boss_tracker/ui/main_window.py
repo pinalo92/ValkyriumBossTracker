@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from PySide6.QtCore import QObject, Qt, QTimer, Signal
+from PySide6.QtCore import QObject, Qt, QThread, QTimer, Signal
 from PySide6.QtGui import QAction, QColor, QFont, QGuiApplication, QIcon, QPainter, QPixmap
 from PySide6.QtWidgets import (
     QApplication,
@@ -53,10 +53,10 @@ from ..sources.aion2timers_api import (
     observations_from_my_timers,
     resolve_personal_token,
 )
-from ..sources.a2tools_companion import (
-    ensure_a2tools_on_startup,
-    polish_meter_window,
-    stop_a2tools_meter,
+from ..sources.a2tools_companion import stop_a2tools_meter
+from ..sources.questlog_companion import (
+    ensure_questlog_on_startup,
+    stop_questlog,
 )
 from ..sources.a2tools_feed import (
     live_feed_age_ms,
@@ -216,12 +216,12 @@ class MainWindow(QMainWindow):
             QTimer.singleShot(400, self._start_a2tools_live)
             QTimer.singleShot(800, lambda: self.on_sync_a2tools(silent=True))
         QTimer.singleShot(200, self._apply_startup_mode)
-        if getattr(self.settings, "a2tools_launch_on_start", True):
-            QTimer.singleShot(900, self._ensure_a2tools_companion)
-            # Win11 a veces vuelve a meter el icono: reaplicar sin barra de tareas
-            self._meter_polish_timer = QTimer(self)
-            self._meter_polish_timer.timeout.connect(self._polish_a2tools_meter)
-            self._meter_polish_timer.start(2_000)
+        if getattr(
+            self.settings,
+            "questlog_launch_on_start",
+            getattr(self.settings, "a2tools_launch_on_start", True),
+        ):
+            QTimer.singleShot(900, self._ensure_questlog_companion)
         QTimer.singleShot(2_500, lambda: self.check_for_updates(silent=True))
 
     def _card(self) -> QFrame:
@@ -1305,10 +1305,12 @@ class MainWindow(QMainWindow):
         self._really_quit = True
         if hasattr(self, "_hotkey"):
             self._hotkey.stop()
-        if hasattr(self, "_meter_polish_timer"):
-            self._meter_polish_timer.stop()
         self._stop_a2tools_live()
-        # Al salir de Valkyrium, cerrar también el DPS meter
+        # Al salir de Valkyrium, cerrar también Questlog (y A2Tools si quedó de versiones viejas)
+        try:
+            stop_questlog()
+        except Exception:
+            pass
         try:
             stop_a2tools_meter()
         except Exception:
@@ -1331,9 +1333,11 @@ class MainWindow(QMainWindow):
             ):
                 self.show_pins_overlay()
             return
-        if hasattr(self, "_meter_polish_timer"):
-            self._meter_polish_timer.stop()
         self._stop_a2tools_live()
+        try:
+            stop_questlog()
+        except Exception:
+            pass
         try:
             stop_a2tools_meter()
         except Exception:
@@ -1447,24 +1451,53 @@ class MainWindow(QMainWindow):
         self.statusBar().showMessage(f"Marcado muerto: {boss.name_es}", 4000)
         show_toast("Muerto", boss.name_es, ms=1800)
 
-    def _polish_a2tools_meter(self):
-        """Mantiene el meter fuera de la barra de tareas."""
-        try:
-            polish_meter_window()
-        except Exception:
-            pass
+    def _ensure_questlog_companion(self):
+        """Abre Questlog; si falta, descarga el instalador oficial en segundo plano."""
+        auto_install = bool(getattr(self.settings, "questlog_auto_install", True))
 
-    def _ensure_a2tools_companion(self):
-        """Meter A2Tools on + Event Timers off; abre A2Tools (él se auto-actualiza)."""
-        try:
-            note = ensure_a2tools_on_startup()
-        except Exception as e:
-            self.statusBar().showMessage(f"A2Tools: {e}", 5_000)
+        class _Worker(QObject):
+            finished = Signal(str)
+            progress = Signal(str)
+
+            def __init__(self, auto_install: bool):
+                super().__init__()
+                self._auto_install = auto_install
+
+            def run(self):
+                try:
+                    note = ensure_questlog_on_startup(
+                        auto_install=self._auto_install,
+                        progress=self.progress.emit,
+                    )
+                except Exception as e:
+                    note = f"Questlog: {e}"
+                self.finished.emit(note)
+
+        # Evitar dos descargas a la vez
+        if getattr(self, "_questlog_thread", None) is not None:
+            if self._questlog_thread.isRunning():
+                return
+
+        self._questlog_thread = QThread(self)
+        self._questlog_worker = _Worker(auto_install)
+        self._questlog_worker.moveToThread(self._questlog_thread)
+        self._questlog_thread.started.connect(self._questlog_worker.run)
+        self._questlog_worker.progress.connect(self._on_questlog_progress)
+        self._questlog_worker.finished.connect(self._on_questlog_ensure_done)
+        self._questlog_worker.finished.connect(self._questlog_thread.quit)
+        self._questlog_thread.finished.connect(self._questlog_worker.deleteLater)
+        self._questlog_thread.start()
+
+    def _on_questlog_progress(self, msg: str):
+        self.statusBar().showMessage(msg, 15_000)
+        show_toast("Questlog", msg, ms=2200)
+
+    def _on_questlog_ensure_done(self, note: str):
+        self.statusBar().showMessage(note, 8_000)
+        low = note.lower()
+        if "no instalado" in low and "descarg" not in low:
             return
-        self.statusBar().showMessage(note, 5_000)
-        if "no instalado" not in note.lower():
-            show_toast("A2Tools", note, ms=2800)
-        self._polish_a2tools_meter()
+        show_toast("Questlog", note, ms=3500)
 
     def check_for_updates(self, silent: bool = True):
         import sys
@@ -1558,6 +1591,10 @@ class MainWindow(QMainWindow):
         if hasattr(self, "_hotkey"):
             self._hotkey.stop()
         self._stop_a2tools_live()
+        try:
+            stop_questlog()
+        except Exception:
+            pass
         try:
             stop_a2tools_meter()
         except Exception:

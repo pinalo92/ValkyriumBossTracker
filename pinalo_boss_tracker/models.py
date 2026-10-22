@@ -102,8 +102,12 @@ class AppSettings:
     # Feed CDN A2Tools Event Timers (vivos/muertos del servidor, sin clave)
     a2tools_server_id: int = 0  # 0 = auto (prefs A2Tools / nombre)
     a2tools_auto_sync: bool = True
-    # Al abrir Valkyrium: lanzar/ajustar A2Tools (meter on, Event Timers off)
-    a2tools_launch_on_start: bool = True
+    # Al abrir Valkyrium: abrir Questlog Desktop (DPS / overlays; él se auto-actualiza)
+    questlog_launch_on_start: bool = True
+    # Si no está instalado: descargar setup oficial (~111 MB) e instalar
+    questlog_auto_install: bool = True
+    # Legacy: ya no lanza A2Tools; se mantiene por compat con settings.json viejos
+    a2tools_launch_on_start: bool = False
     # Arranque: solo overlay en pantalla + icono en bandeja del sistema
     start_in_tray: bool = True
     overlay_on_start: bool = True
