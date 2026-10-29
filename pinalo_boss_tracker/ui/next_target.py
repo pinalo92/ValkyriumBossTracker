@@ -131,7 +131,7 @@ class NextTargetPanel(QFrame):
             o = refresh_observation(b, observations.get(b.id), settings)
             lines.append(
                 f"{stop.order}. {b.name_es}<br>"
-                f"&nbsp;&nbsp;<span style='color:#7ec8ff'>{format_tp_number(t)}</span> · "
+                f"&nbsp;&nbsp;<span style='color:#8ee9ff'>{format_tp_number(t)}</span> · "
                 f"{format_alive_dead(o)} · {format_countdown(o)}"
             )
         self.despues.setText("<br>".join(lines) if len(lines) > 1 else "")
@@ -174,7 +174,7 @@ class NextTargetCompact(QFrame):
             name = name[:17] + "…"
         self.lbl.setText(
             f"<b>IR →</b><br>{name}<br>"
-            f"<span style='color:#7ec8ff;font-size:16px;font-family:Cascadia Mono'>"
+            f"<span style='color:#8ee9ff;font-size:16px;font-family:Cascadia Mono'>"
             f"TP {format_tp_number(tp)}</span><br>"
             f"{format_alive_dead(obs)} · {format_countdown(obs)}"
         )

@@ -1,24 +1,24 @@
-"""Marca Valkyrium · by Pinalo — colores y tipografía fija."""
+"""Marca Valkyrium · by Pinalo — colores del emblema (cian, cobalto, noche)."""
 
 from __future__ import annotations
 
 from PySide6.QtGui import QColor, QFont
 
-# —— Paleta ——
-PURPLE = "#c08bff"  # abismo / Valkyrium
-PURPLE_DEEP = "#9b6dff"
-PURPLE_DIM = "#6e4fa8"
-BLUE_P = "#4dabff"  # azul del icono P
-BLUE_TP = "#7ec8ff"
-BLUE_DEEP = "#1f6feb"
-BG = "#0c0e16"
-BG_CARD = "#14121f"
-BG_ELEVATED = "#1a1628"
-BORDER = "#2e2642"
-BORDER_GLOW = "#5b3d8a"
-TEXT = "#eef0f7"
-TEXT_MUTED = "#9aa0b8"
-TEXT_DIM = "#6f7690"
+# —— Paleta del emblema: alas cian, escudo cobalto, fondo noche ——
+PURPLE = "#5ad4ff"  # acento (el cian del emblema; el nombre se mantiene)
+PURPLE_DEEP = "#2aa8e0"
+PURPLE_DIM = "#1a6f99"
+BLUE_P = "#8ee9ff"
+BLUE_TP = "#b9f4ff"
+BLUE_DEEP = "#1578c9"
+BG = "#070d18"
+BG_CARD = "#0e1828"
+BG_ELEVATED = "#142236"
+BORDER = "#1e3a56"
+BORDER_GLOW = "#3ec8f0"
+TEXT = "#f4fbff"
+TEXT_MUTED = "#9eb4c8"
+TEXT_DIM = "#6d8498"
 OK = "#5fe08a"
 WARN = "#ffd54a"
 DANGER = "#ff6b7a"

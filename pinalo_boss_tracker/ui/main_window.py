@@ -91,10 +91,12 @@ from ..updater import (
     resolve_manifest_url,
 )
 from .about import AboutDialog
+from .dps_meter import DpsMeterWindow
 from .next_target import NextTargetPanel
 from .pins import PinStrip, PinsOverlay, make_pins_tab, select_pin_bosses
 from .brand import (
     BG_CARD,
+    BLUE_DEEP,
     BLUE_P,
     BLUE_TP,
     BORDER,
@@ -116,7 +118,7 @@ def _app_icon() -> QIcon:
     """Icono Pinalo (P) empaquetado; fallback dibujado si falta el archivo."""
     from ..resources import package_data_dir
 
-    for name in ("app_icon.ico", "app_icon.png"):
+    for name in ("guild_logo.png", "app_icon.ico", "app_icon.png"):
         path = package_data_dir() / name
         if path.is_file():
             icon = QIcon(str(path))
@@ -126,7 +128,7 @@ def _app_icon() -> QIcon:
     pm.fill(Qt.GlobalColor.transparent)
     p = QPainter(pm)
     p.setRenderHint(QPainter.RenderHint.Antialiasing)
-    p.setBrush(QColor("#1f6feb"))
+    p.setBrush(QColor(BLUE_DEEP))
     p.setPen(Qt.PenStyle.NoPen)
     p.drawEllipse(4, 4, 56, 56)
     p.setPen(QColor(BLUE_P))
@@ -153,6 +155,7 @@ class MainWindow(QMainWindow):
         self.observations = load_observations()
         self.route_running = True
         self._overlay: PinsOverlay | None = None
+        self._dps: DpsMeterWindow | None = None
         self._overlay_suppressed = False  # True = usuario ocultó a propósito (atajo/menú)
         self._really_quit = False
         self._live_bridge: A2ToolsLiveBridge | None = None
@@ -216,6 +219,7 @@ class MainWindow(QMainWindow):
             QTimer.singleShot(400, self._start_a2tools_live)
             QTimer.singleShot(800, lambda: self.on_sync_a2tools(silent=True))
         QTimer.singleShot(200, self._apply_startup_mode)
+        QTimer.singleShot(400, self.show_dps_meter)
         if getattr(
             self.settings,
             "questlog_launch_on_start",
@@ -1167,8 +1171,11 @@ class MainWindow(QMainWindow):
         act_show.triggered.connect(self.show_from_tray)
         act_overlay = QAction("Mostrar / ocultar overlay (Ctrl+Shift+B)", self)
         act_overlay.triggered.connect(self.toggle_pins_overlay)
+        act_dps = QAction("Mostrar / ocultar medidor DPS", self)
+        act_dps.triggered.connect(self.toggle_dps_meter)
         menu.addAction(act_show)
         menu.addAction(act_overlay)
+        menu.addAction(act_dps)
         menu.addSeparator()
         menu.addAction(self._tray_appearance_action(menu))
         menu.addSeparator()
@@ -1315,6 +1322,9 @@ class MainWindow(QMainWindow):
             stop_a2tools_meter()
         except Exception:
             pass
+        if self._dps is not None:
+            self._dps.close()
+            self._dps = None
         if self._overlay is not None:
             self._overlay.close()
             self._overlay = None
@@ -1342,10 +1352,37 @@ class MainWindow(QMainWindow):
             stop_a2tools_meter()
         except Exception:
             pass
+        if self._dps is not None:
+            self._dps.close()
+            self._dps = None
         if self._overlay is not None:
             self._overlay.close()
             self._overlay = None
         super().closeEvent(event)
+
+    def show_dps_meter(self):
+        if self._dps is None:
+            self._dps = DpsMeterWindow()
+            self._dps.moved.connect(self._on_dps_moved)
+            ox = getattr(self.settings, "dps_x", None)
+            oy = getattr(self.settings, "dps_y", None)
+            if ox is not None and oy is not None:
+                self._dps.move(int(ox), int(oy))
+            self._dps.setWindowOpacity(float(getattr(self.settings, "dps_opacity", 0.96) or 0.96))
+            self._dps.start_listening()
+        self._dps.show()
+        self._dps.raise_()
+
+    def toggle_dps_meter(self):
+        if self._dps is not None and self._dps.isVisible():
+            self._dps.hide()
+            return
+        self.show_dps_meter()
+
+    def _on_dps_moved(self, x: int, y: int):
+        self.settings.dps_x = int(x)
+        self.settings.dps_y = int(y)
+        save_settings(self.settings)
 
     def show_pins_overlay(self):
         self._overlay_suppressed = False
@@ -1708,7 +1745,7 @@ class MainWindow(QMainWindow):
             f"body{{color:{TEXT};font-family:{CSS_UI};font-size:13px;}}"
             f".n{{color:{BLUE_TP};font-family:'Cascadia Mono';font-size:18px;font-weight:700;}}"
             f".t{{color:#ffb454;font-family:'Cascadia Mono';font-size:15px;font-weight:700;}}"
-            ".card{background:#171d25;border:1px solid #2a3441;border-radius:8px;"
+            ".card{background:#0e1828;border:1px solid #1e3a56;border-radius:8px;"
             "padding:10px 12px;margin:0 0 10px 0;}"
             ".muted{color:#9aa7b8;font-size:12px;}"
             "</style>",

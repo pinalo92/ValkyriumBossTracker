@@ -1,5 +1,11 @@
 # Changelog — Valkyrium Boss Tracker (by Pinalo)
 
+## v0.2.9
+
+- Medidor de DPS propio (Npcap): overlay siempre encima, arrastrable, con el grupo y tu DPS
+- Cabecera **App oficial de Valkyrium**. El logo de la guild entra solo al dejar `guild_logo.png` en `data/`
+- Si Npcap no está instalado, el medidor lo dice y sigue en pantalla
+
 ## v0.2.8
 
 - Al abrir Valkyrium se abre **Questlog** (DPS / overlays)

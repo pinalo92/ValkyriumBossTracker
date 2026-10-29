@@ -23,8 +23,13 @@ class AboutDialog(QDialog):
 
         logo = QLabel()
         logo.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        icon = package_data_dir() / "app_icon.png"
-        if icon.is_file():
+        icon = None
+        for name in ("guild_logo.png", "app_icon.png"):
+            candidate = package_data_dir() / name
+            if candidate.is_file():
+                icon = candidate
+                break
+        if icon is not None:
             pm = QPixmap(str(icon)).scaled(
                 96,
                 96,
@@ -45,6 +50,12 @@ class AboutDialog(QDialog):
         by.setFont(font_ui(12))
         by.setStyleSheet(f"color:{BLUE_TP};font-weight:600;")
         lay.addWidget(by)
+
+        official = QLabel("App oficial de Valkyrium")
+        official.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        official.setFont(font_ui(11, QFont.Weight.DemiBold))
+        official.setStyleSheet(f"color:{BLUE_TP};")
+        lay.addWidget(official)
 
         ver = QLabel(f"Boss Tracker · v{__version__}")
         ver.setAlignment(Qt.AlignmentFlag.AlignCenter)

@@ -64,7 +64,7 @@ QPushButton {{
   color: {TEXT};
 }}
 QPushButton:hover {{
-  background-color: #221c36;
+  background-color: #163044;
   border-color: {PURPLE_DEEP};
 }}
 QPushButton#primary {{
@@ -84,7 +84,7 @@ QPushButton#ok {{
   border-color: {OK};
 }}
 QComboBox, QSpinBox, QLineEdit {{
-  background-color: #100e1a;
+  background-color: #0c1624;
   border: 1px solid {BORDER};
   border-radius: 6px;
   padding: 6px;
@@ -118,7 +118,7 @@ QTabBar::tab:selected {{
   font-weight: 600;
 }}
 QTableWidget {{
-  background-color: #100e1a;
+  background-color: #0c1624;
   gridline-color: {BORDER};
   border: 1px solid {BORDER};
   border-radius: 8px;
@@ -137,7 +137,7 @@ QHeaderView::section {{
   font-size: 12px;
 }}
 QLabel#nextTarget {{
-  background-color: #16122a;
+  background-color: #122033;
   border: 1px solid {BORDER_GLOW};
   border-radius: 10px;
   padding: 12px 14px;
@@ -145,7 +145,7 @@ QLabel#nextTarget {{
   color: {TEXT};
 }}
 QFrame#nextPanel {{
-  background-color: #12101f;
+  background-color: #101c2c;
   border: 2px solid {PURPLE_DEEP};
   border-radius: 14px;
 }}
@@ -192,17 +192,17 @@ QLabel#nextDespues {{
   border-top: 1px solid {BORDER};
 }}
 QFrame#nextCompact {{
-  background: rgba(18, 16, 31, 220);
+  background: rgba(10, 22, 38, 230);
   border: 2px solid {BLUE_P};
   border-radius: 12px;
   color: {TEXT};
 }}
 QTableWidget::item:selected {{
-  background-color: #2a1f4a;
+  background-color: #16486a;
   color: {TEXT};
 }}
 QTextEdit {{
-  background-color: #100e1a;
+  background-color: #0c1624;
   border: 1px solid {BORDER};
   border-radius: 8px;
   font-family: {CSS_UI};
@@ -216,7 +216,7 @@ QCheckBox::indicator:checked {{
   border: 1px solid {PURPLE};
 }}
 QStatusBar {{
-  background-color: #08090f;
+  background-color: #060c14;
   color: {TEXT_MUTED};
   font-family: {CSS_UI};
 }}
@@ -227,7 +227,7 @@ QMenu {{
   font-family: {CSS_UI};
 }}
 QMenu::item:selected {{
-  background-color: #2a1f4a;
+  background-color: #16486a;
   color: {PURPLE};
 }}
 QScrollBar:vertical {{

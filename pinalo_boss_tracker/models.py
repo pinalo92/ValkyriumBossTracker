@@ -119,6 +119,9 @@ class AppSettings:
     # Posición memorizada del overlay (None = centrar / default)
     overlay_x: int | None = None
     overlay_y: int | None = None
+    dps_x: int | None = None
+    dps_y: int | None = None
+    dps_opacity: float = 0.96
     # Wizard de primera vez completado
     wizard_done: bool = False
     # URL JSON de actualización portable: {"version":"0.2.1","url":"https://...zip"}
